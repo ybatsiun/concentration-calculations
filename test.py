@@ -1,40 +1,29 @@
-arr = [1, 1, 2, 5]  
-step = 1
-workArray = [0, 0, 0, 0]
-collector = []
+#TODO if last item in result array doesnt fit with initial array add it into the result array .
+# this is for cases with fractional numbers
 
-# while(workArray[0] <= arr[0]):
+def getVariants(arr, step):
+    index = 0
+    collector = []
+    workArray = [0]*len(arr)
 
-#     while(workArray[1] <= arr[1]):
+    def fillCollectorArray(workArray, step, index):
+        while(workArray[index] <= arr[index]):
+            if(index+1 >= len(workArray)):
+                collector.append(workArray.copy())
+                workArray[index] += step
+            else:
+                fillCollectorArray(workArray, step, index+1)
+                workArray[index+1] = 0
+                workArray[index] += step
 
-#         while(workArray[2] <= arr[2]):
+    fillCollectorArray(workArray, step, index)
+    return collector
 
-#             while(workArray[3] <= arr[3]):
-#                 collector.append(workArray.copy())
-#                 workArray[3] += step
-#             workArray[3] = 0
-#             workArray[2] += step
-
-#         workArray[2] = 0
-#         workArray[1] += step
-
-#     workArray[1] = 0
-#     workArray[0] += step
-
-
-def do(workArray, step, index):
-
-    while(workArray[index] <= arr[index]):
-        if(index+1 >= len(workArray)):
-            #breakpoint()
-            collector.append(workArray.copy())
-            workArray[index] += step
-        else:
-            #breakpoint()
-            do(workArray, step, index+1)
-            workArray[index+1] = 0
-            workArray[index] += step
+arr = [9, 9, 9, 89]
+g = getVariants(arr, 9)
 
 
-do([0,0,0,0], step, 0)
-print(collector)
+    
+
+
+
