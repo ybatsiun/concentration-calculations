@@ -24,7 +24,6 @@ def calculateEndConcentrations(a, b, c, d):
 
     sol = odeint(pend, y0, t, args=(k1, k2, k3))
 
-    # print(sol)
 
     plt.plot(t, sol[:, 0], 'b', label='A')
     plt.plot(t, sol[:, 1], 'g', label='B')
