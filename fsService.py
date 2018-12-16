@@ -5,9 +5,3 @@ def writeToFile(content, fileName):
     pickle.dump(content, file)
 
     file.close()
-
-    # with open (fileName, 'rb') as fp:
-    #     itemlist = pickle.load(fp)
-
-    # print(itemlist)
-    

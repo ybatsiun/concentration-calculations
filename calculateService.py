@@ -40,7 +40,8 @@ def calculateConcentrationsLines(systemObj, constants):
     # plt.xlabel('t')
     # plt.grid()
     # plt.show()   
-    breakpoint()
+
+    # breakpoint()
     return sol
 
 
