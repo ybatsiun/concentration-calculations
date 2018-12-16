@@ -28,7 +28,18 @@ def calculateConcentrationsLines(k1, k2, k3):
     plt.legend(loc='best')
     plt.xlabel('t')
     plt.grid()
-    #plt.show()
+    # plt.show()
 
     return sol
 
+
+def getCalculationsSetByVariants(constantsSet):
+    result = []
+    for constantsSet in constantsSet:
+        obj = {}
+        obj['constantsSet'] = constantsSet
+        obj['concentrationsLine'] = calculateConcentrationsLines(
+            *constantsSet)
+        result.append(obj)
+
+    return result

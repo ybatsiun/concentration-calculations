@@ -1,14 +1,9 @@
-import system
-import variate
+import calculateService
+import variationService
 from config import *
 
 
-constantsVariations = variate.getVariants(constants)
+constantsVariations = variationService.getVariants(constants)
 
-result = []
-for constantsSet in constantsVariations:
-    obj = {}
-    obj['constantsSet'] = constantsSet
-    obj['concentrationsLine'] = system.calculateConcentrationsLines(
-        *constantsSet)
-    result.append(obj)
+x = calculateService.getCalculationsSetByVariants(constantsVariations)
+print(x)
