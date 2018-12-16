@@ -1,9 +1,9 @@
 import calculateService
 import variationService
+import fsService
 from config import *
 
 
 constantsVariations = variationService.getVariants(constants)
-
-x = calculateService.getCalculationsSetByVariants(constantsVariations)
-print(x)
+results = calculateService.getCalculationsSetByVariants(constantsVariations)
+fsService.writeToFile(results,'test.json')
