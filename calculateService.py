@@ -5,7 +5,6 @@ from config import *
 
 
 def calculateConcentrationsLines(systemObj, constants):
-    # breakpoint()
     initialConcentrations = []
     for reagentName in systemObj['reagentsList']:
         configVal = calculation['INITIAL_CONCENTRATIONS'][reagentName]
@@ -18,14 +17,14 @@ def calculateConcentrationsLines(systemObj, constants):
 
         # assign C_A,C_B ... C_n to values from initial concentrations array
         for concentrationsSign in concentrationsSigns:
-            globals()[concentrationsSign] = y
+            reagentName = concentrationsSign.split('_')[1]
+            globals()[concentrationsSign] = calculation['INITIAL_CONCENTRATIONS'][reagentName]
 
         # assign k1,k2...kn to values from constants array
         for i in range(0, len(constants)):
             globals()['k'+str(i+1)] = constants[i]
-        solved = [exec(equations[0]), exec(equations[1]),exec(equations[2]), exec(equations[3])]
-        breakpoint()
-        return equations
+        
+        return [eval(equations[0]), eval(equations[1]),eval(equations[2]), eval(equations[3])]
 
     concentrationsSigns = systemObj['concentrationsSigns']
     equations = systemObj['system']

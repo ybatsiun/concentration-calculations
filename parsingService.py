@@ -65,7 +65,6 @@ def getEquations():
     for s in rea2:  # собираем эти слагаемые
         k = 'k' + str((i + 1)) + '*'
         for t in s[0]:
-            concentrationsSigns.append('C_{}'.format(t[1]))
             if t[0] == '1':
                 k = k + 'C_{}*'.format(t[1])
 
@@ -76,6 +75,7 @@ def getEquations():
     equations = []
     for s in agg:  # собираем конечные уравнения
         k = 'dC({})/dt = '.format(s)
+        concentrationsSigns.append('C_{}'.format(s))
         i = -1
         flag = True
         for t in rea2:
