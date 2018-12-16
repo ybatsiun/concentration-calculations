@@ -4,6 +4,7 @@ import re
 from config import *
 import re
 
+
 def getEquations():
     rea = calculation['equations']
     n = len(rea)
@@ -59,14 +60,17 @@ def getEquations():
         i += 1
 
     equa = []  # список со слагаемыми уравнений
+    concentrationsSigns = []
     i = 0
     for s in rea2:  # собираем эти слагаемые
         k = 'k' + str((i + 1)) + '*'
         for t in s[0]:
+            concentrationsSigns.append('C_{}'.format(t[1]))
             if t[0] == '1':
-                k = k + 'C({})*'.format(t[1])
+                k = k + 'C_{}*'.format(t[1])
+
             else:
-                k = k + 'C({})**{}'.format(t[1], t[0])
+                k = k + 'C_{}**{}'.format(t[1], t[0])
         equa.append(k)
         i += 1
     equations = []
@@ -93,14 +97,18 @@ def getEquations():
                             if flag:
                                 k = k + \
                                     '{}{}*{}'.format(
-                                        l if l == '-' else '', n, equa[i])
+                                        l if l == '-' else '',
+                                        '1' if n == '' else n, equa[i])
                                 flag = False
                             else:
-                                k = k + ' {} {}*{}'.format(l, n, equa[i])
+                                k = k + ' {} {}*{}'.format(l, '1' if n == '' else n, equa[i])
+
+        secondPartEquation = k.split(' = ')[1]
         # copy string
-        equations.append(k.encode().decode())
+        equations.append(secondPartEquation.encode().decode())
 
     return {
         'system': equations,
-        'reagentsList': agg
+        'reagentsList': agg,
+        'concentrationsSigns': concentrationsSigns
     }
