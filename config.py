@@ -17,12 +17,10 @@ constants = [
 ]
 
 calculation = {
-    'equations': ["3A=2B", "B+2C->D"],
+    'equations': ["3A=2B", "B+2C->3D"],
     'integrationInterval': 10,
     'timeInterval': [0, 6],
     'initalConcentrations': [6, 0, 8, 0]
-
-
 }
 
 # TODO
