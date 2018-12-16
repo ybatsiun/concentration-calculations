@@ -21,15 +21,6 @@ def calculateConcentrationsLines(k1, k2, k3):
 
     sol = odeint(pend, y0, t, args=(k1, k2, k3))
 
-    plt.plot(t, sol[:, 0], 'b', label='A')
-    plt.plot(t, sol[:, 1], 'g', label='B')
-    plt.plot(t, sol[:, 2], 'r', label='C')
-    plt.plot(t, sol[:, 3], 'k', label='D')
-    plt.legend(loc='best')
-    plt.xlabel('t')
-    plt.grid()
-    # plt.show()
-
     return sol
 
 

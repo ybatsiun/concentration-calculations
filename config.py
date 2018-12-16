@@ -15,3 +15,16 @@ constants = [
         'max': 9
     }
 ]
+
+calculation = {
+    'equations': ["3A=2B", "B+2C->D"],
+    'integrationInterval': 10,
+    'timeInterval': [0, 6],
+    'initalConcentrations': [6, 0, 8, 0]
+
+
+}
+
+# TODO
+# amount of constants != to constants in equations
+# amount initial concentrations != reagents
