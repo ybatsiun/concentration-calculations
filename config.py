@@ -13,15 +13,5 @@ constants = [
         'min': 7,
         'avg': 8,
         'max': 9
-    },
-    {
-        'min': 7,
-        'avg': 8,
-        'max': 9
-    },
-    {
-        'min': 7,
-        'avg': 8,
-        'max': 9
     }
 ]
