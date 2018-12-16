@@ -16,14 +16,14 @@ def calculateConcentrationsLines(systemObj, constants):
     def pend(y, tAxis, concentrationsSigns, equations, constants):
 
         # assign C_A,C_B ... C_n to values from initial concentrations array
-        for concentrationsSign in concentrationsSigns:
-            reagentName = concentrationsSign.split('_')[1]
-            globals()[concentrationsSign] = calculation['INITIAL_CONCENTRATIONS'][reagentName]
+        for i in range(0,len(concentrationsSigns)):
+            globals()[concentrationsSigns[i]] = y[i]
 
         # assign k1,k2...kn to values from constants array
         for i in range(0, len(constants)):
             globals()['k'+str(i+1)] = constants[i]
-        
+
+        k = [eval(equations[0]), eval(equations[1]),eval(equations[2]), eval(equations[3])]
         return [eval(equations[0]), eval(equations[1]),eval(equations[2]), eval(equations[3])]
 
     concentrationsSigns = systemObj['concentrationsSigns']
@@ -31,6 +31,16 @@ def calculateConcentrationsLines(systemObj, constants):
     sol = odeint(pend, initialConcentrations, tAxis, args=(
         concentrationsSigns, equations, constants))
 
+        
+    # plt.plot(tAxis, sol[:, 0], 'b', label=systemObj['concentrationsSigns'][0])
+    # plt.plot(tAxis, sol[:, 1], 'g', label=systemObj['concentrationsSigns'][1])
+    # plt.plot(tAxis, sol[:, 2], 'r', label=systemObj['concentrationsSigns'][2])
+    # plt.plot(tAxis, sol[:, 3], 'k', label=systemObj['concentrationsSigns'][3])
+    # plt.legend(loc='best')
+    # plt.xlabel('t')
+    # plt.grid()
+    # plt.show()   
+    breakpoint()
     return sol
 
 
