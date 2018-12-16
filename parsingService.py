@@ -61,13 +61,12 @@ def getEquations():
     equa = []  # список со слагаемыми уравнений
     i = 0
     for s in rea2:  # собираем эти слагаемые
-        k = 'k' + str((i + 1)) + '|'
+        k = 'k' + str((i + 1)) + '*'
         for t in s[0]:
             if t[0] == '1':
-                k = k + 'C({})|'.format(t[1])
+                k = k + 'C({})*'.format(t[1])
             else:
-                k = k + 'C({})**{}|'.format(t[1], t[0])
-        #breakpoint()
+                k = k + 'C({})**{}'.format(t[1], t[0])
         equa.append(k)
         i += 1
     equations = []
@@ -92,30 +91,16 @@ def getEquations():
                             else:
                                 n = v[0]
                             if flag:
-                                #breakpoint()
                                 k = k + \
-                                    '{}|{}|{}'.format(
+                                    '{}{}*{}'.format(
                                         l if l == '-' else '', n, equa[i])
                                 flag = False
                             else:
-                                k = k + ' {} {}|{}'.format(l, n, equa[i])
-        #copy string
-        addMultiplySign(k)                
+                                k = k + ' {} {}*{}'.format(l, n, equa[i])
+        # copy string
         equations.append(k.encode().decode())
-    
 
     return {
         'system': equations,
         'reagentsList': agg
     }
-
-def addMultiplySign(equation):
-    pattern = re.compile("(-|\+|\*{2}\d|\(\w\)|k_)")
-    #breakpoint()
-    partsOfEquation = equation.replace(" ", "").split('=')
-    secondPartMembers = list(partsOfEquation[1])
-
-    for member in secondPartMembers:
-        if(pattern.match(member)):
-            print(member)  
-

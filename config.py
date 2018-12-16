@@ -18,9 +18,9 @@ constants = [
 
 calculation = {
     'equations': ["3A=2B", "B+2C->3D"],
-    'integrationInterval': 10,
-    'timeInterval': [0, 6],
-    'initalConcentrations': [6, 0, 8, 0]
+    'INTEGRATION_INTERVAL': 10,
+    'TIME_INTERVAL': [0, 6],
+    'INITIAL_CONCENTRATIONS': {"A": 6, "B": 0, "C": 8, "D": 0}
 }
 
 # TODO

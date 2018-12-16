@@ -5,10 +5,10 @@ import parsingService
 from config import *
 
 
-# constantsVariations = variationService.getVariants(constants)
-# results = calculateService.getCalculationsSetByVariants(constantsVariations)
+systemObj = parsingService.getEquations()
+print(systemObj)
+#constantsVariations = variationService.getVariants(constants)
+#results = calculateService.getCalculationsSetByVariants(systemObj,constantsVariations)
 # fsService.writeToFile(results,'test.json')
 
-x = parsingService.getEquations()
 
-print(x)
