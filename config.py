@@ -1,18 +1,18 @@
 constants = [
     {
         'min': 1,
-        'avg': 2,
-        'max': 3
+        'max': 3,
+        'step':1
     },
     {
         'min': 4,
-        'avg': 5,
-        'max': 6
+        'max': 6,
+        'step': 1,
     },
     {
-        'min': 7,
-        'avg': 8,
-        'max': 9
+        'min': 0,
+        'max': 8,
+        'step': 2,
     }
 ]
 
