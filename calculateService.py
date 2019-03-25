@@ -32,16 +32,6 @@ def calculateConcentrationsLines(systemObj, constants):
         concentrationsSigns, equations, constants))
 
         
-    # plt.plot(tAxis, sol[:, 0], 'b', label=systemObj['concentrationsSigns'][0])
-    # plt.plot(tAxis, sol[:, 1], 'g', label=systemObj['concentrationsSigns'][1])
-    # plt.plot(tAxis, sol[:, 2], 'r', label=systemObj['concentrationsSigns'][2])
-    # plt.plot(tAxis, sol[:, 3], 'k', label=systemObj['concentrationsSigns'][3])
-    # plt.legend(loc='best')
-    # plt.xlabel('t')
-    # plt.grid()
-    # plt.show()   
-
-    # breakpoint()
     return sol
 
 
