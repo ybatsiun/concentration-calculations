@@ -22,8 +22,8 @@ def calculateConcentrationsLines(systemObj, constants, timeInterval):
         # assign k1,k2...kn to values from constants array
         for i in range(0, len(constants)):
             globals()['k'+str(i+1)] = constants[i]
-
-        return [eval(equations[0]), eval(equations[1]), eval(equations[2]), eval(equations[3])]
+        # TODO dynamic number of equations
+        return [eval(equations[0]), eval(equations[1])]
 
     concentrationsSigns = systemObj['concentrationsSigns']
     equations = systemObj['system']
@@ -37,19 +37,7 @@ def calculateConcentrationsLines(systemObj, constants, timeInterval):
 def getCalculationsSetByVariants(systemObj, constantsPopulation):
 
     result = []
-    # for constantsSet in constantsSet:
-    #     obj = {}
-    #     obj['constantsSet'] = constantsSet
-    #     obj['concentrations'] = []
-    #     for timeValue in range(CALCULATION_CONFIG['TIME_INTERVAL'][0], CALCULATION_CONFIG['TIME_INTERVAL'][1], CALCULATION_CONFIG['STEP_TO_DIVIDE']):
-    #         subTimeIntervalObj = {}
-    #         subTimeIntervalObj['timeInterval'] = [
-    #             timeValue, timeValue+CALCULATION_CONFIG['STEP_TO_DIVIDE']]
-    #         subTimeIntervalObj['concentrationsVsTime'] = calculateConcentrationsLines(systemObj,constantsSet,subTimeIntervalObj['timeInterval'])
-    #         obj['concentrations'].append(subTimeIntervalObj.copy())
-
-    #     result.append(obj)
-
+   
     for timeValue in range(CALCULATION_CONFIG['TIME_INTERVAL'][0], CALCULATION_CONFIG['TIME_INTERVAL'][1], CALCULATION_CONFIG['STEP_TO_DIVIDE']):
         obj = {}
         obj['timeInterval'] = [
@@ -58,7 +46,7 @@ def getCalculationsSetByVariants(systemObj, constantsPopulation):
         for constantsSet in constantsPopulation:
             subTimeIntervalObj = {}
             subTimeIntervalObj['constantsSet'] = constantsSet
-            subTimeIntervalObj['concentrationLine'] = calculateConcentrationsLines(systemObj,constantsSet,obj['timeInterval'])
+            subTimeIntervalObj['concentrationLine'] = calculateConcentrationsLines(systemObj,constantsSet,obj['timeInterval']).tolist()
             obj['data'].append(subTimeIntervalObj.copy())
 
         result.append(obj)

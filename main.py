@@ -12,4 +12,4 @@ results = services.calculateService.getCalculationsSetByVariants(systemObj,const
 services.mlService.getTrainNetworks(results)
 services.fsService.writeToFile(results,'test.json')
 
-print(results)
+#print(results)
