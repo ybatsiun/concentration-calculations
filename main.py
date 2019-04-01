@@ -1,13 +1,14 @@
-import calculateService
-import variationService
-import fsService
-import parsingService
+import services.calculateService
+import services.variationService
+import services.fsService
+import services.parsingService
 from config import *
 
 
-systemObj = parsingService.getEquations()
-constantsVariations = variationService.getVariants(constants)
-results = calculateService.getCalculationsSetByVariants(systemObj,constantsVariations)
-fsService.writeToFile(results,'test.json')
+systemObj = services.parsingService.getEquations()
+constantsVariations = services.variationService.getVariants(constants)
+results = services.calculateService.getCalculationsSetByVariants(systemObj,constantsVariations)
+
+services.fsService.writeToFile(results,'test.json')
 
 print(results)
