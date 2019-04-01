@@ -7,11 +7,11 @@ from config import *
 def calculateConcentrationsLines(systemObj, constants, timeInterval):
     initialConcentrations = []
     for reagentName in systemObj['reagentsList']:
-        configVal = calculation['INITIAL_CONCENTRATIONS'][reagentName]
+        configVal = CALCULATION_CONFIG['INITIAL_CONCENTRATIONS'][reagentName]
         initialConcentrations.append(configVal)
 
     tAxis = np.linspace(timeInterval[0],
-                        timeInterval[1], calculation['INTEGRATION_INTERVAL'])
+                        timeInterval[1], CALCULATION_CONFIG['INTEGRATION_INTERVAL'])
 
     def pend(y, tAxis, concentrationsSigns, equations, constants):
 
@@ -41,19 +41,19 @@ def getCalculationsSetByVariants(systemObj, constantsPopulation):
     #     obj = {}
     #     obj['constantsSet'] = constantsSet
     #     obj['concentrations'] = []
-    #     for timeValue in range(calculation['TIME_INTERVAL'][0], calculation['TIME_INTERVAL'][1], calculation['STEP_TO_DIVIDE']):
+    #     for timeValue in range(CALCULATION_CONFIG['TIME_INTERVAL'][0], CALCULATION_CONFIG['TIME_INTERVAL'][1], CALCULATION_CONFIG['STEP_TO_DIVIDE']):
     #         subTimeIntervalObj = {}
     #         subTimeIntervalObj['timeInterval'] = [
-    #             timeValue, timeValue+calculation['STEP_TO_DIVIDE']]
+    #             timeValue, timeValue+CALCULATION_CONFIG['STEP_TO_DIVIDE']]
     #         subTimeIntervalObj['concentrationsVsTime'] = calculateConcentrationsLines(systemObj,constantsSet,subTimeIntervalObj['timeInterval'])
     #         obj['concentrations'].append(subTimeIntervalObj.copy())
 
     #     result.append(obj)
 
-    for timeValue in range(calculation['TIME_INTERVAL'][0], calculation['TIME_INTERVAL'][1], calculation['STEP_TO_DIVIDE']):
+    for timeValue in range(CALCULATION_CONFIG['TIME_INTERVAL'][0], CALCULATION_CONFIG['TIME_INTERVAL'][1], CALCULATION_CONFIG['STEP_TO_DIVIDE']):
         obj = {}
         obj['timeInterval'] = [
-                timeValue, timeValue+calculation['STEP_TO_DIVIDE']]
+                timeValue, timeValue+CALCULATION_CONFIG['STEP_TO_DIVIDE']]
         obj['data'] = []
         for constantsSet in constantsPopulation:
             subTimeIntervalObj = {}

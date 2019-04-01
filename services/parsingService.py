@@ -6,7 +6,7 @@ import re
 
 
 def getEquations():
-    rea = calculation['equations']
+    rea = CALCULATION_CONFIG['equations']
     n = len(rea)
 
     if not all(rea):  # удаляем пустые элементы списка

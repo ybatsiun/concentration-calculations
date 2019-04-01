@@ -16,7 +16,7 @@ constants = [
     }
 ]
 
-calculation = {
+CALCULATION_CONFIG = {
     'equations': ["3A=2B", "B+2C->D"],
     'INTEGRATION_INTERVAL': 50,
     'TIME_INTERVAL': [0, 1],
