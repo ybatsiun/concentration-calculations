@@ -18,9 +18,9 @@ constants = [
 
 calculation = {
     'equations': ["3A=2B", "B+2C->D"],
-    'INTEGRATION_INTERVAL': 100,
-    'TIME_INTERVAL': [0, 8],
-    'STEP_TO_DIVIDE': 4,
+    'INTEGRATION_INTERVAL': 50,
+    'TIME_INTERVAL': [0, 1],
+    'STEP_TO_DIVIDE': 1,
     'INITIAL_CONCENTRATIONS': {"A": 6, "B": 0, "C": 8, "D": 0}
 }
 

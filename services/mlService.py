@@ -23,9 +23,14 @@ def getTrainNetworks(data):
     # models.append(('NB', GaussianNB()))
     # models.append(('SVM', SVC(gamma='auto')))
 
-    constantsSetArray = []
-    concentrationsArray = []
-    for constantsSet,concentrations in data:
-        constantsSetArray.append(constantsSet)
-        concentrationsArray.append(concentrations)
+    # generate network for each time interval
+    for timeIntervalData in data:
+        constantsSetArray = []
+        concentrationVsTimeArray = []
+        # arrange constants vs concentratioLines in different arrays
+        for constantsVsConcentration in timeIntervalData['data']:
+
+            constantsSetArray.append(constantsVsConcentration['constantsSet'])
+            concentrationVsTimeArray.append(constantsVsConcentration['concentrationLine'])
+        
     return 'mock'

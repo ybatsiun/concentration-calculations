@@ -58,7 +58,7 @@ def getCalculationsSetByVariants(systemObj, constantsPopulation):
         for constantsSet in constantsPopulation:
             subTimeIntervalObj = {}
             subTimeIntervalObj['constantsSet'] = constantsSet
-            subTimeIntervalObj['concentrationsVsTime'] = calculateConcentrationsLines(systemObj,constantsSet,obj['timeInterval'])
+            subTimeIntervalObj['concentrationLine'] = calculateConcentrationsLines(systemObj,constantsSet,obj['timeInterval'])
             obj['data'].append(subTimeIntervalObj.copy())
 
         result.append(obj)
