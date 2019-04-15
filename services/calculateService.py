@@ -22,8 +22,9 @@ def calculateConcentrationsLines(systemObj, constants, timeInterval):
         # assign k1,k2...kn to values from constants array
         for i in range(0, len(constants)):
             globals()['k'+str(i+1)] = constants[i]
+        
         # TODO dynamic number of equations
-        return [eval(equations[0]), eval(equations[1])]
+        return [eval(equations[0]), eval(equations[1]),eval(equations[2]),eval(equations[3])]
 
     concentrationsSigns = systemObj['concentrationsSigns']
     equations = systemObj['system']

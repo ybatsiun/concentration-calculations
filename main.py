@@ -10,6 +10,6 @@ systemObj = services.parsingService.getEquations()
 constantsVariations = services.variationService.getVariants(constants)
 results = services.calculateService.getCalculationsSetByVariants(systemObj,constantsVariations)
 services.mlService.getTrainNetworks(results)
-services.fsService.writeToFile(results,'test.json')
+services.fsService.writeJsonToFile(results,'test.json')
 
 #print(results)
