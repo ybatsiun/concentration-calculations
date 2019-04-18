@@ -12,7 +12,7 @@ constants = [
     {
         'min':90,
         'max':100,
-        'step':2
+        'step':1
     }
 ]
 

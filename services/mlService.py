@@ -47,16 +47,14 @@ def getTrainNetworks(data):
         dataset_size = len(concentrationVsTimeArray_validation)
         concentrationVsTimeArray_validation_2d = np.asarray(concentrationVsTimeArray_validation).reshape(dataset_size,-1)
 
-        # knn = SVC(gamma=0.1)
-        # knn.fit(concentrationVsTimeArray_train_2d, constantsSetArray_train)
-
         max_depth = 50
         regr_multirf = RandomForestRegressor(n_estimators=100,
                                                           max_depth=max_depth,
                                                           random_state=0)
         regr_multirf.fit(concentrationVsTimeArray_train_2d, constantsSetArray_train)
         
+        print('random forest results')
         print(constantsSetArray_validation)
         print(regr_multirf.predict(concentrationVsTimeArray_validation_2d))
-            
+
     return 'mock'
