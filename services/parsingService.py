@@ -111,34 +111,37 @@ def getEquations(rea):
         equations.append(secondPartEquation.encode().decode())
 
     return {
-        "system": _convertEquationsToExpressions(equations),
+        "system": _convertEquationsToExpressions(equations,concentrationsSigns),
         "reagentsList": agg,
         "concentrationsSigns": concentrationsSigns,
     }
 
 
-def _convertEquationsToExpressions(equations):
+def _convertEquationsToExpressions(equations,concentrationsSigns):
     functions = []
     i = 0
     for equation in equations:
         functionName = f"equationFunc_{i}"
         i += 1
-        functionString = _getFunctionString(equation, functionName)
+        functionString = _getFunctionString(equation, functionName,concentrationsSigns)
         exec(functionString)
         functions.append(locals()[functionName])
 
     return functions
 
 
-def _getFunctionString(equationString, functionName):
+def _getFunctionString(equationString, functionName,concentrationsSigns):
     nstring = equationString.replace("**", "^")
     splitted = re.split("(\-|\+|\*|\^|\n)", nstring)
     newSplitted = []
     for val in splitted:
         newSplitted.append(val.strip().replace("^", "**"))
 
-    # TODO 
-    varKeys = ["C_A", "C_B", "C_C","C_D", "k1", "k2","k3","k4"]
+    # generate an array of variables  to replace
+    varKeys = []
+    for i in range(0,len(constants)):
+        varKeys.append("k"+str(i + 1))
+    varKeys = varKeys + concentrationsSigns
     finalSplitted = []
     for val in newSplitted:
 
