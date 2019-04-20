@@ -19,6 +19,7 @@ from neupy.layers import *
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split
 from sklearn.multioutput import MultiOutputRegressor
+from sklearn.metrics import explained_variance_score
 
 
 
@@ -36,7 +37,7 @@ def getTrainNetworks(data):
                 constantsVsConcentration['concentrationLine'])
         
         # Split-out validation dataset
-        validation_size = 0.02
+        validation_size = 0.03
         seed = 7
         constantsSetArray_train, constantsSetArray_validation, concentrationVsTimeArray_train, concentrationVsTimeArray_validation = model_selection.train_test_split(
             constantsSetArray, concentrationVsTimeArray, test_size=validation_size, random_state=seed)
@@ -53,8 +54,13 @@ def getTrainNetworks(data):
                                                           random_state=0)
         regr_multirf.fit(concentrationVsTimeArray_train_2d, constantsSetArray_train)
         
-        print('random forest results')
-        print(constantsSetArray_validation)
-        print(regr_multirf.predict(concentrationVsTimeArray_validation_2d))
+        predictedForValidation = regr_multirf.predict(concentrationVsTimeArray_validation_2d)
+        accuracyBreakBy = explained_variance_score(constantsSetArray_validation, predictedForValidation,  multioutput='raw_values')
+        avarage = explained_variance_score(constantsSetArray_validation, predictedForValidation,  multioutput='uniform_average')
+        
+        print('random forest accuracy breakby:')
+        print(accuracyBreakBy)
+        print('random forest accuracy avarage:')
+        print(avarage)
 
     return 'mock'

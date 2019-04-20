@@ -4,6 +4,13 @@ import re
 import random
 from config import *
 
+
+def parseEquations(equations):
+    equationDataArray = _getEquations(equations)
+    functionsArray = _convertEquations(equationDataArray)
+    
+    return functionsArray
+
 def _getEquations(rea):
     n = len(rea)
 
@@ -168,7 +175,3 @@ def _convertEquations(equationDataArray):
     return equationDataArray
 
 
-def parseEquations(equations):
-    equationDataArray = _getEquations(equations)
-    functionsArray = _convertEquations(equationDataArray)
-    return functionsArray

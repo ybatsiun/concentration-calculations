@@ -9,11 +9,8 @@ import time
 systemObj = services.parsingService.parseEquations(CALCULATION_CONFIG['equations'])
 constantsVariations = services.variationService.getVariants(constants)
 
-start = time.time()
 results = services.calculateService.getCalculationsSetByVariants(systemObj,constantsVariations)
-end = time.time()
-print(end - start)
-#services.mlService.getTrainNetworks(results)
+services.mlService.getTrainNetworks(results)
 
 #services.fsService.writeJsonToFile(results,'test.json')
-print(results)
+#print(results)
