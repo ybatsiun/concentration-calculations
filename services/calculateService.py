@@ -5,39 +5,37 @@ from config import *
 import services.fsService
 
 
-def calculateConcentrationsLines(systemObj, constants, timeInterval):
-    def pend(y, tAxis, concentrationsSigns, equations, constants):
+def calculateConcentrationsLines(equationDataArray, constants, timeInterval):
+    
+    def pend(y, tAxis, equationDataArray, constants):
         args = {}
-        # assign C_A,C_B ... C_n to values from initial concentrations array
-        for i in range(0, len(concentrationsSigns)):
-            args[concentrationsSigns[i]] = y[i]
-
         # assign k1,k2...kn to values from constants array
         for i in range(0, len(constants)):
             args["k" + str(i + 1)] = constants[i]
 
+        for i in range(0, len(equationDataArray)):
+            # assign C_A,C_B ... C_n to values from initial concentrations array
+            concentrationSign =  "C_{}".format(equationDataArray[i]['reagent'])
+            args[concentrationSign] = y[i]
+
         equationsValues = []
-        for function in equations:
-            equationsValues.append(function(args))
+        for equationData in equationDataArray:
+            equationsValues.append(equationData['function'](args))
         return equationsValues
+
     initialConcentrations = []
-    for reagentName in systemObj["reagentsList"]:
-        configVal = CALCULATION_CONFIG["INITIAL_CONCENTRATIONS"][reagentName]
+    for equationData in equationDataArray:
+        configVal = CALCULATION_CONFIG["INITIAL_CONCENTRATIONS"][equationData['reagent']]
         initialConcentrations.append(configVal)
 
     tAxis = np.linspace(
-        timeInterval[0], timeInterval[1], CALCULATION_CONFIG["INTEGRATION_INTERVAL"]
-    )
-
-    concentrationsSigns = systemObj["concentrationsSigns"]
-    equations = systemObj["system"]
-
+        timeInterval[0], timeInterval[1], CALCULATION_CONFIG["INTEGRATION_INTERVAL"])
+    
     sol = odeint(
         pend,
         initialConcentrations,
         tAxis,
-        args=(concentrationsSigns, equations, constants),
-    )
+        args=(equationDataArray, constants))
 
     return sol
 

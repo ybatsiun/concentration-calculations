@@ -6,7 +6,7 @@ import services.mlService
 from config import *
 import time
 
-systemObj = services.parsingService.getEquations(CALCULATION_CONFIG['equations'])
+systemObj = services.parsingService.parseEquations(CALCULATION_CONFIG['equations'])
 constantsVariations = services.variationService.getVariants(constants)
 
 start = time.time()
@@ -16,3 +16,4 @@ print(end - start)
 #services.mlService.getTrainNetworks(results)
 
 #services.fsService.writeJsonToFile(results,'test.json')
+print(results)

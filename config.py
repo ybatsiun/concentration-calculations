@@ -1,33 +1,35 @@
 #TODO caps
 constants = [
     {
-        'min': 1,
-        'max': 20,
+        'min': 2,
+        'max': 3,
         'step': 1
     },
     {
-        'min':50,
-        'max':60,
-        'step':1
+        'min':0.5,
+        'max':1,
+        'step':0.5
     },
     {
-        'min':90,
-        'max':100,
+        'min':1,
+        'max':2,
         'step':1
     }
 ]
 
 CALCULATION_CONFIG = {
     'equations': ["3A=2B","B+2C->D"],
-    'INTEGRATION_INTERVAL': 70,
+    'INTEGRATION_INTERVAL': 700,
     'TIME_INTERVAL': [0, 5],
     'STEP_TO_DIVIDE': 5,
-    'INITIAL_CONCENTRATIONS': {"A": 6, "B": 1,"C": 8, "D": 0}
+    'INITIAL_CONCENTRATIONS': {"A": 6, "B": 0,"C": 8, "D": 0}
 }
 
-# TODO
+# move data validation to FE form validation
+# might need to split python module to different task(getEquations - now can validate constant amount,concentrations amount
+# - and other functions)
+# TODO handle on FE
 # amount of constants != to constants in equations
 # amount initial concentrations != reagents
 
 # what constans is to what equation?
-# write ready objects to .json to prevent big data being kept in a memory

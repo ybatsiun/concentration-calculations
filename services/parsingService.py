@@ -1,10 +1,10 @@
 __author__ = "Бредихин І.В."
 
 import re
+import random
 from config import *
 
-
-def getEquations(rea):
+def _getEquations(rea):
     n = len(rea)
 
     if not all(rea):  # удаляем пустые элементы списка
@@ -74,10 +74,12 @@ def getEquations(rea):
         i += 1
     equations = []
     reagentsList= []
+    equationDataArray = []
     for s in agg:  # собираем конечные уравнения
+        equationData = {}
         k = "dC({})/dt = ".format(s)
-        reagentsList.append(s)
-        concentrationsSigns.append("C_{}".format(s))
+        equationData['reagent']= s
+        #concentrationsSigns.append("C_{}".format(s))
         i = -1
         flag = True
         for t in rea2:
@@ -110,26 +112,21 @@ def getEquations(rea):
 
         secondPartEquation = k.split(" = ")[1]
         # copy string
-        equations.append(secondPartEquation.encode().decode())
+        #equations.append(secondPartEquation.encode().decode())
+        equationData['equation'] = secondPartEquation.encode().decode()
+        equationDataArray.append(equationData)
 
-    return {
-        "system": _convertEquationsToExpressions(equations,concentrationsSigns),
-        "reagentsList": reagentsList,
-        "concentrationsSigns": concentrationsSigns,
-    }
+    return equationDataArray
 
 
-def _convertEquationsToExpressions(equations,concentrationsSigns):
+def _convertEquationToExpression(equation,concentrationsSigns):
     functions = []
-    i = 0
-    for equation in equations:
-        functionName = f"equationFunc_{i}"
-        i += 1
-        functionString = _getFunctionString(equation, functionName,concentrationsSigns)
-        exec(functionString)
-        functions.append(locals()[functionName])
 
-    return functions
+    functionName = f"equationFunc_{random.randint(1,101)}"
+    functionString = _getFunctionString(equation, functionName,concentrationsSigns)
+    exec(functionString)
+
+    return locals()[functionName]
 
 
 def _getFunctionString(equationString, functionName,concentrationsSigns):
@@ -159,3 +156,19 @@ def _getFunctionString(equationString, functionName,concentrationsSigns):
         template = template + s
 
     return template
+
+def _convertEquations(equationDataArray):
+    concentrationsSigns = []
+    for equationData in equationDataArray:
+        concentrationsSigns.append("C_{}".format(equationData['reagent']))
+    
+    for equationData in equationDataArray:
+        equationData['function'] = _convertEquationToExpression(equationData['equation'],concentrationsSigns)
+    
+    return equationDataArray
+
+
+def parseEquations(equations):
+    equationDataArray = _getEquations(equations)
+    functionsArray = _convertEquations(equationDataArray)
+    return functionsArray
