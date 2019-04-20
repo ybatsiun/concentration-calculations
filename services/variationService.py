@@ -1,7 +1,9 @@
+import numpy 
+
 def getVariants(constants):
     def recursiveFunc(index, arr):
             # iterate across all values in range between min and max with a step
-        for constantValue in range(constants[index]['min'], constants[index]['max']+1, constants[index]['step']):
+        for constantValue in numpy.arange(constants[index]['min'], constants[index]['max']+1, constants[index]['step']):
             arr.append(constantValue)
 
             # this is a last constant object in config

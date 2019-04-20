@@ -6,15 +6,6 @@ import services.fsService
 
 
 def calculateConcentrationsLines(systemObj, constants, timeInterval):
-    initialConcentrations = []
-    for reagentName in systemObj["reagentsList"]:
-        configVal = CALCULATION_CONFIG["INITIAL_CONCENTRATIONS"][reagentName]
-        initialConcentrations.append(configVal)
-
-    tAxis = np.linspace(
-        timeInterval[0], timeInterval[1], CALCULATION_CONFIG["INTEGRATION_INTERVAL"]
-    )
-
     def pend(y, tAxis, concentrationsSigns, equations, constants):
         args = {}
         # assign C_A,C_B ... C_n to values from initial concentrations array
@@ -25,10 +16,18 @@ def calculateConcentrationsLines(systemObj, constants, timeInterval):
         for i in range(0, len(constants)):
             args["k" + str(i + 1)] = constants[i]
 
-        equationsValues=[]
+        equationsValues = []
         for function in equations:
             equationsValues.append(function(args))
         return equationsValues
+    initialConcentrations = []
+    for reagentName in systemObj["reagentsList"]:
+        configVal = CALCULATION_CONFIG["INITIAL_CONCENTRATIONS"][reagentName]
+        initialConcentrations.append(configVal)
+
+    tAxis = np.linspace(
+        timeInterval[0], timeInterval[1], CALCULATION_CONFIG["INTEGRATION_INTERVAL"]
+    )
 
     concentrationsSigns = systemObj["concentrationsSigns"]
     equations = systemObj["system"]

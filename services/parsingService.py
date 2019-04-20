@@ -73,8 +73,10 @@ def getEquations(rea):
         equa.append(k)
         i += 1
     equations = []
+    reagentsList= []
     for s in agg:  # собираем конечные уравнения
         k = "dC({})/dt = ".format(s)
+        reagentsList.append(s)
         concentrationsSigns.append("C_{}".format(s))
         i = -1
         flag = True
@@ -112,7 +114,7 @@ def getEquations(rea):
 
     return {
         "system": _convertEquationsToExpressions(equations,concentrationsSigns),
-        "reagentsList": agg,
+        "reagentsList": reagentsList,
         "concentrationsSigns": concentrationsSigns,
     }
 
