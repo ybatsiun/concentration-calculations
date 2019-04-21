@@ -3,6 +3,7 @@ import services.variationService
 import services.fsService as fsService
 import services.parsingService
 import services.mlService as mlService
+import services.metricsService as metricsService
 from config import *
 import time
 import numpy as np
@@ -27,5 +28,6 @@ experimentalData_2d_3 = np.asarray(experimentalData[2]).reshape(dataset_size,-1)
 predictions = mlService.getPredictionsArray(networks,[experimentalData_2d_1,experimentalData_2d_2,experimentalData_2d_3])
 
 print(predictions)
+metricsService.getRelativeError(predictions)
 
 fsService.writeJsonToFile(results,'results.json')
