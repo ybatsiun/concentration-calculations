@@ -27,9 +27,11 @@ def getTrainNetworks(data):
     networks = []
     # generate network for each time interval
     for timeIntervalData in data:
+        
         constantsSetArray = []
         concentrationVsTimeArray = []
-        # arrange constants vs concentratioLines in different arrays
+        
+        # arrange constants vs concentration lines in different arrays
         for constantsVsConcentration in timeIntervalData['data']:
 
             constantsSetArray.append(constantsVsConcentration['constantsSet'])
@@ -41,6 +43,7 @@ def getTrainNetworks(data):
         seed = 7
         constantsSetArray_train, constantsSetArray_validation, concentrationVsTimeArray_train, concentrationVsTimeArray_validation = model_selection.train_test_split(
             constantsSetArray, concentrationVsTimeArray, test_size=validation_size, random_state=seed)
+        
         dataset_size = len(concentrationVsTimeArray_train)
         concentrationVsTimeArray_train_2d = np.asarray(concentrationVsTimeArray_train).reshape(dataset_size,-1)
         

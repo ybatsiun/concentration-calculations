@@ -14,3 +14,8 @@ def writeJsonToFile(content, fileName):
     json.dump(content, file)
 
     file.close()
+
+def readJsonFile(fileName):
+    with open(fileName, 'r') as f:
+        datastore = json.load(f)
+    return datastore

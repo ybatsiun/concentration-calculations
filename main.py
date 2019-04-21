@@ -1,6 +1,6 @@
 import services.calculateService
 import services.variationService
-import services.fsService
+import services.fsService as fsService
 import services.parsingService
 import services.mlService
 from config import *
@@ -10,9 +10,12 @@ import time
 systemObj = services.parsingService.parseEquations(CALCULATION_CONFIG['equations'])
 constantsVariations = services.variationService.getVariants(constants)
 
+start = time.time()
 results = services.calculateService.getCalculationsSetByVariants(systemObj,constantsVariations)
-services.mlService.getTrainNetworks(results)
+print(time.time() - start)
+networks = services.mlService.getTrainNetworks(results)
 # predict
+experimentalData = fsService.readJsonFile('input.json')
 
-#services.fsService.writeJsonToFile(results,'test.json')
+#services.fsService.writeJsonToFile(results,'results.json')
 #print(results)

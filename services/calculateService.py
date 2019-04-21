@@ -23,7 +23,7 @@ def getConcentrationsLines(equationDataArray, constants, timeInterval):
 
         for i in range(0, len(equationDataArray)):
             # assign C_A,C_B ... C_n to values from initial concentrations array
-            concentrationSign =  "C_{}".format(equationDataArray[i]['reagent'])
+            concentrationSign = "C_{}".format(equationDataArray[i]['reagent'])
             args[concentrationSign] = y[i]
 
         equationsValues = []
@@ -38,7 +38,7 @@ def getConcentrationsLines(equationDataArray, constants, timeInterval):
 
     tAxis = np.linspace(
         timeInterval[0], timeInterval[1], CALCULATION_CONFIG["INTEGRATION_INTERVAL"])
-    
+
     sol = odeint(
         pend,
         initialConcentrations,
