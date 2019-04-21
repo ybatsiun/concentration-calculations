@@ -169,6 +169,5 @@ def _convertEquations(equationDataArray):
     for equationData in equationDataArray:
         equationData['function'] = _convertEquationToExpression(equationData['equation'],concentrationsSigns)
     
-    return equationDataArray
 
-
+    return sorted(equationDataArray, key=lambda k: k['reagent']) 

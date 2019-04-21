@@ -28,7 +28,8 @@ def getConcentrationsLines(equationDataArray, constants, timeInterval):
 
         equationsValues = []
         for equationData in equationDataArray:
-            equationsValues.append(equationData['function'](args))
+            # get function value and convert to <float>
+            equationsValues.append(equationData['function'](args).item())
         return equationsValues
 
     initialConcentrations = []
@@ -72,6 +73,5 @@ def getCalculationsSetByVariants(systemObj, constantsPopulation):
             obj["data"].append(subTimeIntervalObj.copy())
 
         result.append(obj)
-        # services.fsService.writeJsonToFile(obj,'results.json')
 
     return result

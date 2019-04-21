@@ -4,7 +4,8 @@ def getVariants(constants):
     def recursiveFunc(index, arr):
             # iterate across all values in range between min and max with a step
         for constantValue in numpy.arange(constants[index]['min'], constants[index]['max']+1, constants[index]['step']):
-            arr.append(constantValue)
+            # convert to <int>
+            arr.append(constantValue.item())
 
             # this is a last constant object in config
             if(index+1 >= constantsLength):

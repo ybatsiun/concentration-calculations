@@ -38,7 +38,7 @@ def getTrainNetworks(data):
             concentrationVsTimeArray.append(
                 constantsVsConcentration['concentrationLine'])
         
-        # Split-out validation dataset
+        # split-out validation dataset
         validation_size = 0.03
         seed = 7
         constantsSetArray_train, constantsSetArray_validation, concentrationVsTimeArray_train, concentrationVsTimeArray_validation = model_selection.train_test_split(
@@ -66,4 +66,5 @@ def getTrainNetworks(data):
         print('random forest accuracy avarage:')
         print(avarage)
         networks.append(regr_multirf)
+
     return networks
