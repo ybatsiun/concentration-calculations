@@ -1,51 +1,6 @@
-import re
-from string import Template
+from sklearn.metrics import explained_variance_score
 
+g = avarage = explained_variance_score(
+    [2], [2.1],  multioutput='uniform_average')
 
-def testEval(s):
-    print("evaluating...")
-    eval(s)
-
-
-# def f():
-#     return globals()["a"] * globals()["b"]
-# #v = eval('globals()["a"]**3')
-# a = 'test'
-# lol = f'some{a}'
-# a = 2
-# print(lol)
-
-# teststing = ['globals()["a"]','*','globals()["b"]']
-
-# def generate(teststing):
-#    def subf():
-#      for w in teststing:
-
-k1=1
-C_A=1
-#string = "2*k1*C_A**3 + 2*k2*C_B**2 - 1*k3*C_B*C_C**2"
-string = '2*k1*C_A**3 + 3'
-nstring = string.replace("**", "^")
-splitted = re.split("(\-|\+|\*|\^|\n)", nstring)
-newSplitted = []
-for val in splitted:
-    newSplitted.append(val.strip().replace("^", "**"))
-
-varKeys = ["C_A", "C_B", "C_C", "k1", "k2"]
-finalSplitted = []
-for val in newSplitted:
-
-    index = [i for i, item in enumerate(varKeys) if item in val]
-    if len(index) != 0:
-        finalSplitted.append('globals()["' + val + '"]')
-    else:
-        finalSplitted.append(val)
-
-template = "def func(): return "
-
-for s in finalSplitted:
-    template = template + s
-
-print(template)
-exec(template)
-print(func())
+print(g)

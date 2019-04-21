@@ -21,8 +21,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.multioutput import MultiOutputRegressor
 from sklearn.metrics import explained_variance_score
 
-
-
+# TODO write doc
 def getTrainNetworks(data):
     networks = []
     # generate network for each time interval
@@ -68,3 +67,14 @@ def getTrainNetworks(data):
         networks.append(regr_multirf)
 
     return networks
+
+def getPredictionsArray(networks,inputs):
+    """
+        Predicts based on input and network and returns an array of predicted values.
+        Arguments should have the same array size
+    """
+    predictions = []
+    for i in range(0,len(networks)):
+        predictions.append(networks[i].predict(inputs[i])
+)
+    return predictions

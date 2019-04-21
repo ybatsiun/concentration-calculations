@@ -3,7 +3,7 @@ constants = [
     {
         'min': 1,
         'max': 10,
-        'step': 0.5
+        'step': 2
     },
     {
         'min':32,
@@ -13,7 +13,7 @@ constants = [
     {
         'min':100,
         'max':250,
-        'step':10
+        'step':20
     }
 ]
 
