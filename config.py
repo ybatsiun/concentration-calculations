@@ -1,25 +1,25 @@
 #TODO caps
 constants = [
     {
-        'min': 2,
-        'max': 3,
+        'min': 1,
+        'max': 20,
         'step': 1
     },
     {
-        'min':0.5,
-        'max':1,
-        'step':0.5
+        'min':30,
+        'max':50,
+        'step':2
     },
     {
-        'min':1,
-        'max':2,
-        'step':1
+        'min':100,
+        'max':900,
+        'step':50
     }
 ]
 
 CALCULATION_CONFIG = {
     'equations': ["3A=2B","B+2C->D"],
-    'INTEGRATION_INTERVAL': 700,
+    'INTEGRATION_INTERVAL': 15,
     'TIME_INTERVAL': [0, 5],
     'STEP_TO_DIVIDE': 5,
     'INITIAL_CONCENTRATIONS': {"A": 6, "B": 0,"C": 8, "D": 0}

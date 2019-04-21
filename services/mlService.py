@@ -24,7 +24,7 @@ from sklearn.metrics import explained_variance_score
 
 
 def getTrainNetworks(data):
-
+    networks = []
     # generate network for each time interval
     for timeIntervalData in data:
         constantsSetArray = []
@@ -62,5 +62,5 @@ def getTrainNetworks(data):
         print(accuracyBreakBy)
         print('random forest accuracy avarage:')
         print(avarage)
-
-    return 'mock'
+        networks.append(regr_multirf)
+    return networks

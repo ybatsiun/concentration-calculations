@@ -8,7 +8,7 @@ from config import *
 def parseEquations(equations):
     equationDataArray = _getEquations(equations)
     functionsArray = _convertEquations(equationDataArray)
-    
+
     return functionsArray
 
 def _getEquations(rea):
@@ -86,7 +86,6 @@ def _getEquations(rea):
         equationData = {}
         k = "dC({})/dt = ".format(s)
         equationData['reagent']= s
-        #concentrationsSigns.append("C_{}".format(s))
         i = -1
         flag = True
         for t in rea2:
@@ -118,8 +117,6 @@ def _getEquations(rea):
                                 )
 
         secondPartEquation = k.split(" = ")[1]
-        # copy string
-        #equations.append(secondPartEquation.encode().decode())
         equationData['equation'] = secondPartEquation.encode().decode()
         equationDataArray.append(equationData)
 

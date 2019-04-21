@@ -5,8 +5,16 @@ from config import *
 import services.fsService
 
 
-def calculateConcentrationsLines(equationDataArray, constants, timeInterval):
-    
+def getConcentrationsLines(equationDataArray, constants, timeInterval):
+    """
+        Calculates and return concentration lines(concentration of reagent vs. time)
+
+        Parameters:
+        equationdataArray (Array): Array of objects each containing sign of reagent(A,B...), function to get the value of dC(A,B...)
+        constants (array): 2d-array. Each item contains a unique set of speed constants for the chemical process
+        timeInterval (array): start and finish of a chemical process takes place. Aribitrary units 
+    """
+
     def pend(y, tAxis, equationDataArray, constants):
         args = {}
         # assign k1,k2...kn to values from constants array
@@ -58,7 +66,7 @@ def getCalculationsSetByVariants(systemObj, constantsPopulation):
         for constantsSet in constantsPopulation:
             subTimeIntervalObj = {}
             subTimeIntervalObj["constantsSet"] = constantsSet
-            subTimeIntervalObj["concentrationLine"] = calculateConcentrationsLines(
+            subTimeIntervalObj["concentrationLine"] = getConcentrationsLines(
                 systemObj, constantsSet, obj["timeInterval"]
             ).tolist()
             obj["data"].append(subTimeIntervalObj.copy())
