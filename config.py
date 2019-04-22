@@ -2,25 +2,25 @@
 constants = [
     {
         'min': 1,
-        'max': 10,
-        'step': 2
+        'max': 5,
+        'step': 1
     },
     {
         'min':32,
-        'max':37,
+        'max':40,
         'step':1
     },
     {
         'min':100,
-        'max':250,
-        'step':20
+        'max':190,
+        'step':1
     }
 ]
 
 CALCULATION_CONFIG = {
     'equations': ["3A=2B","B+2C->D"],
     'INTEGRATION_INTERVAL': 16,
-    'TIME_INTERVAL': [0, 15],
+    'TIME_INTERVAL': [0, 10],
     'STEP_TO_DIVIDE': 5,
     'INITIAL_CONCENTRATIONS': {"A": 6, "B": 0,"C": 8, "D": 0}
 }

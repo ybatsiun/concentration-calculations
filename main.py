@@ -23,9 +23,9 @@ experimentalData = fsService.readJsonFile('input.json')
 dataset_size = len([experimentalData[0]])
 experimentalData_2d_1 = np.asarray(experimentalData[0]).reshape(dataset_size,-1)
 experimentalData_2d_2 = np.asarray(experimentalData[1]).reshape(dataset_size,-1)
-experimentalData_2d_3 = np.asarray(experimentalData[2]).reshape(dataset_size,-1)
+#experimentalData_2d_3 = np.asarray(experimentalData[2]).reshape(dataset_size,-1)
 
-predictions = mlService.getPredictionsArray(networks,[experimentalData_2d_1,experimentalData_2d_2,experimentalData_2d_3])
+predictions = mlService.getPredictionsArray(networks,[experimentalData_2d_1,experimentalData_2d_2])
 
 print(predictions)
 metricsService.getRelativeError(predictions)
