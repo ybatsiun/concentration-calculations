@@ -21,6 +21,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.multioutput import MultiOutputRegressor
 from sklearn.metrics import explained_variance_score
 
+import services.utilsService as utils
+
 # TODO write doc
 def getTrainNetworks(data):
     networks = []
@@ -43,12 +45,8 @@ def getTrainNetworks(data):
         constantsSetArray_train, constantsSetArray_validation, concentrationVsTimeArray_train, concentrationVsTimeArray_validation = model_selection.train_test_split(
             constantsSetArray, concentrationVsTimeArray, test_size=validation_size, random_state=seed)
         
-        dataset_size = len(concentrationVsTimeArray_train)
-        concentrationVsTimeArray_train_2d = np.asarray(concentrationVsTimeArray_train).reshape(dataset_size,-1)
-        
-
-        dataset_size = len(concentrationVsTimeArray_validation)
-        concentrationVsTimeArray_validation_2d = np.asarray(concentrationVsTimeArray_validation).reshape(dataset_size,-1)
+        concentrationVsTimeArray_train_2d = utils.get2dData(concentrationVsTimeArray_train)
+        concentrationVsTimeArray_validation_2d = utils.get2dData(concentrationVsTimeArray_validation)
 
         max_depth = 50
         regr_multirf = RandomForestRegressor(n_estimators=100,
@@ -75,6 +73,7 @@ def getPredictionsArray(networks,inputs):
     """
     predictions = []
     for i in range(0,len(networks)):
-        predictions.append(networks[i].predict(inputs[i])
+        input_2d = [np.asarray(inputs[i]).ravel()]
+        predictions.append(networks[i].predict(input_2d)
 )
     return predictions

@@ -2,27 +2,28 @@
 constants = [
     {
         'min': 1,
-        'max': 5,
+        'max': 2,
         'step': 1
     },
     {
-        'min':32,
-        'max':40,
+        'min':36,
+        'max':39,
         'step':1
     },
     {
-        'min':100,
-        'max':190,
+        'min':110,
+        'max':120,
         'step':1
     }
 ]
 
 CALCULATION_CONFIG = {
     'equations': ["3A=2B","B+2C->D"],
-    'INTEGRATION_INTERVAL': 16,
+    'INTEGRATION_INTERVAL': 32,
     'TIME_INTERVAL': [0, 10],
-    'STEP_TO_DIVIDE': 5,
-    'INITIAL_CONCENTRATIONS': {"A": 6, "B": 0,"C": 8, "D": 0}
+    'PARTS_TO_DIVIDE': 2,
+    'INITIAL_CONCENTRATIONS': {"A": 6, "B": 0,"C": 8, "D": 0},
+    'INPUT_FILE_PATH': 'input.json'
 }
 
 # TODO dimension converting for data to a separate method
