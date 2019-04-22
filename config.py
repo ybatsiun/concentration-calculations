@@ -19,8 +19,8 @@ SPEED_CONSTANTS = [
 CALCULATION_CONFIG = {
     'equations': ["3A=2B","B+2C->D"],
     'INTEGRATION_INTERVAL': 32,
-    'TIME_INTERVAL': [0, 10],
-    'PARTS_TO_DIVIDE': 2,
+    'TIME_INTERVAL': [0, 15],
+    'PARTS_TO_DIVIDE': 3,
     'INITIAL_CONCENTRATIONS': {"A": 6, "B": 0,"C": 8, "D": 0},
     'INPUT_FILE_PATH': 'input.json'
 }

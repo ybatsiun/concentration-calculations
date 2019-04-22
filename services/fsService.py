@@ -13,6 +13,11 @@ def writeJsonToFile(content, fileName):
     json.dump(content, file)
     file.close()
 
+def writeToTxtFile(content,fileName):
+    file = open(fileName,'a+')
+    file.write(content)
+    file.close()
+
 def readJsonFile(fileName):
     with open(fileName, 'r') as f:
         datastore = json.load(f)

@@ -12,6 +12,8 @@ from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 from sklearn.naive_bayes import GaussianNB
 from sklearn.svm import SVC
 import numpy as np
+from services.loggerService import log
+
 
 from neupy import algorithms
 from neupy.layers import *
@@ -58,10 +60,10 @@ def getTrainNetworks(data):
         accuracyBreakBy = explained_variance_score(constantsSetArray_validation, predictedForValidation,  multioutput='raw_values')
         avarage = explained_variance_score(constantsSetArray_validation, predictedForValidation,  multioutput='uniform_average')
         
-        print('random forest accuracy breakby:')
-        print(accuracyBreakBy)
-        print('random forest accuracy avarage:')
-        print(avarage)
+        log('random forest accuracy breakby:')
+        log(accuracyBreakBy)
+        log('random forest accuracy avarage:')
+        log(avarage)
         networks.append(regr_multirf)
 
     return networks
@@ -74,6 +76,8 @@ def getPredictionsArray(networks,inputs):
     predictions = []
     for i in range(0,len(networks)):
         input_2d = [np.asarray(inputs[i]).ravel()]
-        predictions.append(networks[i].predict(input_2d)
-)
+        predictions.append(networks[i].predict(input_2d))
+
+    log("predictions:" )
+    log(predictions)
     return predictions

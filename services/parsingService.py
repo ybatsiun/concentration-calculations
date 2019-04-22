@@ -1,5 +1,6 @@
 __author__ = "Бредихин І.В."
 
+from services.loggerService import log
 import re
 import random
 from config import *
@@ -35,7 +36,7 @@ def _getEquations(rea):
             rea2.append(k)
             rea2.append(k[::-1])
         else:
-            print(
+            log(
                 'Упс. Что-то пошлО не так... Как минимум одно уравнение не содержит знака "=" или "->". \
     Я, конечно, отработаю, но результат удовлетворит ваши ожидания едва ли.'
             )

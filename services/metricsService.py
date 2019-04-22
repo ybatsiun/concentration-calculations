@@ -1,3 +1,5 @@
+from services.loggerService import log
+
 def getRelativeError(answersArray):
     avarageValues = []
     # make 2d array
@@ -16,5 +18,5 @@ def getRelativeError(answersArray):
                 abs(answersArray[a][i]-avarageValues[i])/avarageValues[i])*100
 
 
-    print('relative error per answer')
-    print(answersArray)
+    log('relative error per answer')
+    log(answersArray)

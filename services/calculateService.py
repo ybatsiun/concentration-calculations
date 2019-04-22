@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 from config import *
 import services.fsService
 import services.utilsService as utils
+from services.loggerService import log
 
 
 def getConcentrationsLines(equationDataArray, constants, timeInterval):
@@ -50,7 +51,7 @@ def getConcentrationsLines(equationDataArray, constants, timeInterval):
     return sol
 
 
-def getCalculationsSetByVariants(systemObj, constantsPopulation):
+def getCalculationsSetByVariants(equationData, constantsPopulation):
 
     timeIntervalDivisionStep = int(CALCULATION_CONFIG["TIME_INTERVAL"][1] /
                                          CALCULATION_CONFIG["PARTS_TO_DIVIDE"])
@@ -67,7 +68,7 @@ def getCalculationsSetByVariants(systemObj, constantsPopulation):
     for constantsSet in constantsPopulation:
 
         concentrations = getConcentrationsLines(
-            systemObj, constantsSet,  [CALCULATION_CONFIG["TIME_INTERVAL"][0], CALCULATION_CONFIG["TIME_INTERVAL"][1]]).tolist()
+            equationData, constantsSet,  [CALCULATION_CONFIG["TIME_INTERVAL"][0], CALCULATION_CONFIG["TIME_INTERVAL"][1]]).tolist()
         splittedConcentrations = utils.splitConcentrationsByTimeInterval(concentrations)
         
         # collect in object
@@ -76,4 +77,5 @@ def getCalculationsSetByVariants(systemObj, constantsPopulation):
                    "concentrationLine": splittedConcentrations[i]}
             result[i]['data'].append(obj)
 
+    log('data for neural networks training were generated')
     return result
