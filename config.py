@@ -1,4 +1,3 @@
-#TODO caps
 SPEED_CONSTANTS = [
     {
         'min': 1,
@@ -26,7 +25,6 @@ CALCULATION_CONFIG = {
     'INPUT_FILE_PATH': 'input.json'
 }
 
-# TODO dimension converting for data to a separate method
 # move data validation to FE form validation
 # might need to split python module to different task(getEquations - now can validate constant amount,concentrations amount
 # - and other functions)
