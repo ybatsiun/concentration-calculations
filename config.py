@@ -1,5 +1,5 @@
 #TODO caps
-constants = [
+SPEED_CONSTANTS = [
     {
         'min': 1,
         'max': 2,

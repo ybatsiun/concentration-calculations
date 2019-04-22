@@ -12,7 +12,7 @@ import numpy as np
 # TODO move it to another file to make a separate task
 systemObj = services.parsingService.parseEquations(
     CALCULATION_CONFIG['equations'])
-constantsVariations = services.variationService.getVariants(constants)
+constantsVariations = services.variationService.getVariants(SPEED_CONSTANTS)
 
 start = time.time()
 results = services.calculateService.getCalculationsSetByVariants(

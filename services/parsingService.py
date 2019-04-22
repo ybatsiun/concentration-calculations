@@ -142,7 +142,7 @@ def _getFunctionString(equationString, functionName,concentrationsSigns):
 
     # generate an array of variables  to replace
     varKeys = []
-    for i in range(0,len(constants)):
+    for i in range(0,len(SPEED_CONSTANTS)):
         varKeys.append("k"+str(i + 1))
     varKeys = varKeys + concentrationsSigns
     finalSplitted = []
