@@ -7,7 +7,7 @@ import services.utilsService as utils
 from services.loggerService import log
 
 
-def getConcentrationsLines(equationDataArray, constants, timeInterval):
+def getConcentrationsLines(equationDataArray, constants, timeInterval,intregrationInterval):
     """
         Calculates and return concentration lines(concentration of reagent vs. time)
 
@@ -15,6 +15,7 @@ def getConcentrationsLines(equationDataArray, constants, timeInterval):
         equationdataArray (Array): Array of objects each containing sign of reagent(A,B...), function to get the value of dC(A,B...)
         constants (array): 2d-array. Each item contains a unique set of speed constants for the chemical process
         timeInterval (array): start and finish of a chemical process takes place. Aribitrary units
+        integrationInterval: amount of points on concentration axis
     """
 
     def pend(y, tAxis, equationDataArray, constants):
@@ -40,7 +41,7 @@ def getConcentrationsLines(equationDataArray, constants, timeInterval):
         initialConcentrations.append(configVal)
 
     tAxis = np.linspace(
-        timeInterval[0], timeInterval[1], CALCULATION_CONFIG["INTEGRATION_INTERVAL"])
+        timeInterval[0], timeInterval[1], intregrationInterval)
 
     sol = odeint(
         pend,
@@ -51,10 +52,12 @@ def getConcentrationsLines(equationDataArray, constants, timeInterval):
     return sol
 
 
-def getCalculationsSetByVariants(equationData, constantsPopulation):
+def getCalculationsSetByVariants(equationData, constantsPopulation, intregrationInterval):
 
     timeIntervalDivisionStep = int(CALCULATION_CONFIG["TIME_INTERVAL"][1] /
-                                         CALCULATION_CONFIG["PARTS_TO_DIVIDE"])
+                                   CALCULATION_CONFIG["PARTS_TO_DIVIDE"])
+    timeInterval = [CALCULATION_CONFIG["TIME_INTERVAL"]
+                    [0], CALCULATION_CONFIG["TIME_INTERVAL"][1]]
     result = []
 
     for timeValue in range(
@@ -68,9 +71,9 @@ def getCalculationsSetByVariants(equationData, constantsPopulation):
     for constantsSet in constantsPopulation:
 
         concentrations = getConcentrationsLines(
-            equationData, constantsSet,  [CALCULATION_CONFIG["TIME_INTERVAL"][0], CALCULATION_CONFIG["TIME_INTERVAL"][1]]).tolist()
+            equationData, constantsSet, timeInterval, intregrationInterval).tolist()
         splittedConcentrations = utils.splitConcentrationsByTimeInterval(concentrations)
-        
+
         # collect in object
         for i in range(0, len(splittedConcentrations)):
             obj = {"constantsSet": constantsSet,

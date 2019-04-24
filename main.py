@@ -9,19 +9,25 @@ import services.utilsService as utils
 from services.loggerService import log
 import time
 import numpy as np
+import sys
 
 log('started the process')
+
+# get experimental data
+inputFilePath = sys.argv[1]
+experimentalData = fsService.readJsonFile(inputFilePath)
+intregrationInterval = len(experimentalData)
+experimentalDataByTimeInterval = utils.splitConcentrationsByTimeInterval(experimentalData)
+
 # TODO move it to another file to make a separate task
 equationData = services.parsingService.parseEquations(CALCULATION_CONFIG['equations'])
 constantsVariations = services.variationService.getVariants(SPEED_CONSTANTS)
 
 results = services.calculateService.getCalculationsSetByVariants(
-    equationData, constantsVariations)
+    equationData, constantsVariations,intregrationInterval)
 networks = mlService.getTrainNetworks(results)
 
-# get experimental data
-experimentalDataByTimeInterval = utils.splitConcentrationsByTimeInterval(
-    fsService.readJsonFile(CALCULATION_CONFIG['INPUT_FILE_PATH']))
+
 
 predictions = mlService.getPredictionsArray(
     networks, experimentalDataByTimeInterval)
