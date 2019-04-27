@@ -1,13 +1,12 @@
 from config import *
+from services.loggerService import log
 import services.calculateService
 import services.variationService
 import services.fsService as fsService
-import services.parsingService
+import services.parsingService as parsingService
 import services.mlService as mlService
 import services.metricsService as metricsService
 import services.utilsService as utils
-from services.loggerService import log
-import time
 import numpy as np
 import sys
 
@@ -19,15 +18,14 @@ experimentalData = fsService.readJsonFile(inputFilePath)
 intregrationInterval = len(experimentalData)
 experimentalDataByTimeInterval = utils.splitConcentrationsByTimeInterval(experimentalData)
 
-# TODO move it to another file to make a separate task
-equationData = services.parsingService.parseEquations(CALCULATION_CONFIG['equations'])
+# parse user's input: system of chemical equations
+equationDataArray = parsingService.getEquations(CALCULATION_CONFIG['equations'])
+equationData = parsingService.convertEquations(equationDataArray)
 constantsVariations = services.variationService.getVariants(SPEED_CONSTANTS)
 
 results = services.calculateService.getCalculationsSetByVariants(
     equationData, constantsVariations,intregrationInterval)
 networks = mlService.getTrainNetworks(results)
-
-
 
 predictions = mlService.getPredictionsArray(
     networks, experimentalDataByTimeInterval)

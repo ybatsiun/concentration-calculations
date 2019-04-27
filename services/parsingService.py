@@ -6,13 +6,7 @@ import random
 from config import *
 
 
-def parseEquations(equations):
-    equationDataArray = _getEquations(equations)
-    functionsArray = _convertEquations(equationDataArray)
-
-    return functionsArray
-
-def _getEquations(rea):
+def getEquations(rea):
     n = len(rea)
 
     if not all(rea):  # удаляем пустые элементы списка
@@ -117,8 +111,7 @@ def _getEquations(rea):
                                     l, "1" if n == "" else n, equa[i]
                                 )
 
-        secondPartEquation = k.split(" = ")[1]
-        equationData['equation'] = secondPartEquation.encode().decode()
+        equationData['equation'] = k
         equationDataArray.append(equationData)
 
     return equationDataArray
@@ -162,13 +155,21 @@ def _getFunctionString(equationString, functionName,concentrationsSigns):
 
     return template
 
-def _convertEquations(equationDataArray):
+def convertEquations(equationDataArray):
+    """
+    Parameters:
+    equationDataArray (Array): objects each containig 'equation' - string for differential equation and 'reagentName'
+    Returns:
+    equationDataArray (Array): objects each containing equationDataArray data and 'function' - function to calculate concentration
+                               for reagent at a time
+    """
     concentrationsSigns = []
     for equationData in equationDataArray:
         concentrationsSigns.append("C_{}".format(equationData['reagent']))
     
     for equationData in equationDataArray:
-        equationData['function'] = _convertEquationToExpression(equationData['equation'],concentrationsSigns)
+        secondEquationPart = equationData['equation'].split(" = ")[1]
+        equationData['function'] = _convertEquationToExpression(secondEquationPart,concentrationsSigns)
     
 
     return sorted(equationDataArray, key=lambda k: k['reagent']) 
