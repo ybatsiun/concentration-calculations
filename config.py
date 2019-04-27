@@ -1,25 +1,25 @@
 SPEED_CONSTANTS = [
     {
-        'min': 1,
-        'max': 2,
+        'min': 5,
+        'max': 15,
         'step': 1
     },
     {
-        'min':36,
-        'max':38,
+        'min':10,
+        'max':20,
         'step':1
     },
     {
-        'min':110,
-        'max':110,
+        'min':30,
+        'max':50,
         'step':1
     }
 ]
 
 CALCULATION_CONFIG = {
     'equations': ["3A=2B","B+2C->D"],
-    'TIME_INTERVAL': [0, 10],
-    'PARTS_TO_DIVIDE': 2,
+    'TIME_INTERVAL': [0, 15],
+    'PARTS_TO_DIVIDE': 3,
     'INITIAL_CONCENTRATIONS': {"A": 6, "B": 0,"C": 8, "D": 0},
 }
 
