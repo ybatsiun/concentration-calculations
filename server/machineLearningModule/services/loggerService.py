@@ -2,7 +2,7 @@ import services.fsService as fsService
 import datetime
 import time
 
-FILE_NAME = 'machineLearningModule/log.txt'
+FILE_NAME = 'server/machineLearningModule/log.txt'
 
 def log(line):
     ts = time.time()
