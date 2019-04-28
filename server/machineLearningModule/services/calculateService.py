@@ -7,7 +7,7 @@ import services.utilsService as utils
 from services.loggerService import log
 
 
-def getConcentrationsLines(equationDataArray, constants, timeInterval,intregrationInterval):
+def getConcentrationsLines(equationDataArray, constants, timeInterval, intregrationInterval, initialConcentrations):
     """
         Calculates and return concentration lines(concentration of reagent vs. time)
 
@@ -35,35 +35,27 @@ def getConcentrationsLines(equationDataArray, constants, timeInterval,intregrati
             equationsValues.append(equationData['function'](args).item())
         return equationsValues
 
-    initialConcentrations = []
+    initialConcentrationsValues = []
     for equationData in equationDataArray:
-        configVal = CALCULATION_CONFIG["INITIAL_CONCENTRATIONS"][equationData['reagent']]
-        initialConcentrations.append(configVal)
+        configVal = initialConcentrations[equationData['reagent']]
+        initialConcentrationsValues.append(configVal)
 
     tAxis = np.linspace(
         timeInterval[0], timeInterval[1], intregrationInterval)
-
     sol = odeint(
         pend,
-        initialConcentrations,
+        initialConcentrationsValues,
         tAxis,
         args=(equationDataArray, constants))
 
     return sol
 
 
-def getCalculationsSetByVariants(equationData, constantsPopulation, intregrationInterval):
-
-    timeIntervalDivisionStep = int(CALCULATION_CONFIG["TIME_INTERVAL"][1] /
-                                   CALCULATION_CONFIG["PARTS_TO_DIVIDE"])
-    timeInterval = [CALCULATION_CONFIG["TIME_INTERVAL"]
-                    [0], CALCULATION_CONFIG["TIME_INTERVAL"][1]]
+def getCalculationsSetByVariants(equationData, constantsPopulation, intregrationInterval, timeInterval, partsToDivide, initialConcentrations):
+    timeIntervalDivisionStep = int(timeInterval[1] / partsToDivide)
     result = []
 
-    for timeValue in range(
-            CALCULATION_CONFIG["TIME_INTERVAL"][0],
-            CALCULATION_CONFIG["TIME_INTERVAL"][1],
-            timeIntervalDivisionStep):
+    for timeValue in range(timeInterval[0], timeInterval[1], timeIntervalDivisionStep):
         result.append({'timeInterval': [
             timeValue,
             timeValue + timeIntervalDivisionStep], "data": []})
@@ -71,8 +63,9 @@ def getCalculationsSetByVariants(equationData, constantsPopulation, intregration
     for constantsSet in constantsPopulation:
 
         concentrations = getConcentrationsLines(
-            equationData, constantsSet, timeInterval, intregrationInterval).tolist()
-        splittedConcentrations = utils.splitConcentrationsByTimeInterval(concentrations)
+            equationData, constantsSet, timeInterval, intregrationInterval, initialConcentrations).tolist()
+        splittedConcentrations = utils.splitConcentrationsByTimeInterval(
+            concentrations, partsToDivide)
 
         # collect in object
         for i in range(0, len(splittedConcentrations)):

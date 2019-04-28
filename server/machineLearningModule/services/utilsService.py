@@ -7,8 +7,8 @@ def split(a, n):
     return (a[i * k + min(i, m):(i + 1) * k + min(i + 1, m)] for i in range(n))
 
 
-def splitConcentrationsByTimeInterval(concentrations):
-    return list(split(concentrations, CALCULATION_CONFIG["PARTS_TO_DIVIDE"]))
+def splitConcentrationsByTimeInterval(concentrations,partsToDivide):
+    return list(split(concentrations, partsToDivide))
 
 
 def get2dData(ThreeDimData):
