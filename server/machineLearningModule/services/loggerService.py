@@ -1,11 +1,17 @@
 import services.fsService as fsService
 import datetime
 import time
+import os
 
-FILE_NAME = 'server/machineLearningModule/log.txt'
+dir_path = os.path.dirname(os.path.realpath(__file__))
+FILE_NAME = dir_path + '/../log.txt'
 
-def log(line):
+
+def log(line,printConsole = False):
+    if(printConsole):
+        print(line)
+
     ts = time.time()
     st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
-    formattedLine = "[{}]: {}\n".format(st,line)
-    fsService.writeToTxtFile(formattedLine,FILE_NAME)
+    formattedLine = "[{}]: {}\n".format(st, line)
+    fsService.writeToTxtFile(formattedLine, FILE_NAME)
