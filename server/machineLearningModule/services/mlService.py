@@ -25,8 +25,14 @@ from sklearn.metrics import explained_variance_score
 
 import services.utilsService as utils
 
-# TODO write doc
 def getTrainNetworks(data):
+    """
+        Trains neural networks for each time interval with concentrations as a an input and constants set as an answer
+        
+        Parameters:
+        data (Array): objects each containing a set of concentrations for consntants set in a range of certain time interval
+        Returns an array of neural networks, where each is trained for certain time interval 
+    """
     networks = []
     # generate network for each time interval
     for timeIntervalData in data:
