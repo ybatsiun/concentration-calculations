@@ -1,7 +1,7 @@
+server/machineLearningModule/results.json
 __pycache__/
 node_modules/
 package-lock.json
-results.json
 test*
 log.txt
 __pycache__/config.cpython-37.pyc

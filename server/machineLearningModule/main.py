@@ -32,5 +32,5 @@ predictions = mlService.getPredictionsArray(
 
 metricsService.getRelativeError(predictions)
 
-fsService.writeJsonToFile(results, 'server/machineLearningModule/results.json')
+#fsService.writeJsonToFile(results, 'server/machineLearningModule/results.json')
 log('process was ended successfully')
