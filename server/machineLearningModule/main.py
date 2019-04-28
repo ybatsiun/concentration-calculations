@@ -12,9 +12,6 @@ import sys
 
 log('started the process')
 
-# get experimental data
-# inputFilePath = sys.argv[1]
-# experimentalData = fsService.readJsonFile(inputFilePath)
 experimentalData = eval(sys.argv[1])
 config = eval(sys.argv[2])
 partsToDivide = config['calculationConfig']['partsToDivide']
@@ -24,9 +21,7 @@ intregrationInterval = len(experimentalData)
 experimentalDataByTimeInterval = utils.splitConcentrationsByTimeInterval(
     experimentalData, partsToDivide)
 
-# parse user's input: system of chemical equations
-# equationDataArray = parsingService.getEquations(
-#     CALCULATION_CONFIG['equations'])
+
 equationData = parsingService.convertEquations(equationDataArray)
 constantsVariations = services.variationService.getVariants(
     config['speedConstants'])

@@ -66,10 +66,10 @@ def getTrainNetworks(data):
         accuracyBreakBy = explained_variance_score(constantsSetArray_validation, predictedForValidation,  multioutput='raw_values')
         avarage = explained_variance_score(constantsSetArray_validation, predictedForValidation,  multioutput='uniform_average')
         
-        log('random forest accuracy breakby:')
-        log(accuracyBreakBy)
-        log('random forest accuracy avarage:')
-        log(avarage)
+        log('random forest accuracy breakby:',True)
+        log(accuracyBreakBy,True)
+        log('random forest accuracy avarage:',True)
+        log(avarage,True)
         networks.append(regr_multirf)
 
     return networks
@@ -84,6 +84,6 @@ def getPredictionsArray(networks,inputs):
         input_2d = [np.asarray(inputs[i]).ravel()]
         predictions.append(networks[i].predict(input_2d))
 
-    log("predictions:" )
-    log(predictions)
+    log("predictions:",True )
+    log(predictions,True)
     return predictions

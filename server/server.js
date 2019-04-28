@@ -16,6 +16,7 @@ app.post('/parseEquations', (req, res) => {
     exec(`python "${process.cwd()}/server/machineLearningModule/parseEquations.py" "${equations}"`, (err, stdout, stderr) => {
         if (err) {
             console.error(`exec error: ${err}`);
+            res.status(500).send(err)
             return;
         };
 
@@ -26,16 +27,14 @@ app.post('/parseEquations', (req, res) => {
 
 app.post('/calculateConstants', (req, res) => {
     const { equationData, config, experimentalData } = req.body;
+    exec(`python "${process.cwd()}/machineLearningModule/main.py" "${experimentalData}" "${config}" "${equationData}"`,
+        (err, stdout, stderr) => {
+            if (err) {
+                console.error(`exec error: ${stderr}`);
+                res.status(500).send(stderr)
+                return;
+            };
 
-    const calculateConstantsProc =
-        spawn(`python "${process.cwd()}/server/machineLearningModule/main.py" "${experimentalData}" "${config}" "${equationData}"`, { shell: true });
-
-    calculateConstantsProc.stdout.on('data', (data) => {
-        console.log(`stdout: ${data}`);
-    });
-
-    calculateConstantsProc.stderr.on('data', (data) => {
-        console.log(`stderr: ${data}`);
-    });
-
+            res.send(stdout);
+        });
 });
