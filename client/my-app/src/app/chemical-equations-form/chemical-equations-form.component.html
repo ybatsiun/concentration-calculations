@@ -1,5 +1,18 @@
-<p>
-  chemical-equations-form works!
-</p>
-<button type="button" routerLink="/configConstants">To config & constants</button>
-
+<div class="container">
+  <h1>Equations Form</h1>
+  <form name="form" #f="ngForm" novalidate>
+    <p> type equations here: </p>
+    <div class="form-group">
+      <label for="equation">1st equation:</label>
+      <input type="text" id="equation" name="equation" class="form-control" #equation="ngModel"
+        [(ngModel)]="model.equation" required pattern="[A-Za-z]{5}" #name="ngModel">
+      <div *ngIf="equation.invalid && (equation.dirty || equation.touched)" class="alert alert-danger">
+        <div *ngIf="equation.errors">
+          Enter equation following pattern
+        </div>
+      </div>
+    </div>
+    <button type="submit" id="getDifEq" value="getDifEq" class="btn btn-success"
+      (click)="f.form.valid && getDifferentialEquations()">Go to config & constants</button>
+  </form>
+</div>
