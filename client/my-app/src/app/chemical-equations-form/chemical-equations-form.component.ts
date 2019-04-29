@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
-
+import { FormBuilder, FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
 
 
 @Component({
@@ -9,14 +9,33 @@ import { Router } from "@angular/router";
   styleUrls: ['./chemical-equations-form.component.css']
 })
 export class ChemicalEquationsFormComponent implements OnInit {
+  equationsForm: FormGroup;
+  equationCtrl: FormControl;
 
-  constructor(private router: Router) { }
-  model = new Equations('test');
+  constructor(private router: Router, private fb: FormBuilder) { }
 
   ngOnInit() {
+    //TODO make full reaction validation
+    this.equationCtrl = this.fb.control('', Validators.compose([Validators.required, Validators.pattern(/(\+|->|=)/)]));
+
+    this.equationsForm = this.fb.group({
+      equations: this.fb.array([this.fb.group({ equation: this.equationCtrl })])
+    })
   }
 
-  getDifferentialEquations(){
+  get equationsGetter() {
+    return this.equationsForm.get('equations') as FormArray;
+  }
+
+  addEquation() {
+    this.equationsGetter.push(this.fb.group({ equation: '' }));
+  }
+
+  deleteEquation(index) {
+    this.equationsGetter.removeAt(index);
+  }
+
+  getDifferentialEquations() {
     //do some logic
     this.router.navigateByUrl('/configConstants');
   }
@@ -27,6 +46,6 @@ export class ChemicalEquationsFormComponent implements OnInit {
 class Equations {
 
   constructor(
-      public equation:string,
+    public equation: string,
   ) { }
 }

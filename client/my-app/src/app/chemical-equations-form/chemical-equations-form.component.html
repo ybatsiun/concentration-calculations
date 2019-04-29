@@ -1,18 +1,23 @@
 <div class="container">
   <h1>Equations Form</h1>
-  <form name="form" #f="ngForm" novalidate>
-    <p> type equations here: </p>
-    <div class="form-group">
-      <label for="equation">1st equation:</label>
-      <input type="text" id="equation" name="equation" class="form-control" #equation="ngModel"
-        [(ngModel)]="model.equation" required pattern="[A-Za-z]{5}" #name="ngModel">
-      <div *ngIf="equation.invalid && (equation.dirty || equation.touched)" class="alert alert-danger">
-        <div *ngIf="equation.errors">
+  <form [formGroup]="equationsForm" name="form" #f="ngForm">
+    <label> type equations here: </label>
+
+    <div formArrayName="equations">
+      <div *ngFor="let item of equationsGetter.controls; let pointIndex=index" [formGroupName]="pointIndex">
+        <label> Equation: <input formControlName="equation" type="text" required /> </label>
+
+        <div *ngIf="equationCtrl.invalid && (equationCtrl.dirty || equationCtrl.touched)  "  class="alert alert-danger">
           Enter equation following pattern
         </div>
+        <button type="button" (click)="deleteEquation(pointIndex)">Delete Equation</button>
       </div>
+      <button type="button" (click)="addEquation()">Add Equation</button>
     </div>
+
     <button type="submit" id="getDifEq" value="getDifEq" class="btn btn-success"
       (click)="f.form.valid && getDifferentialEquations()">Go to config & constants</button>
+
   </form>
+  {{ this.equationsForm.value | json }}
 </div>
