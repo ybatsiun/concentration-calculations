@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { FormBuilder, FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
+import { HttpClientService } from '../services/http-client.service';
+import { DataService } from '../services/data.service';
+
 
 
 @Component({
@@ -12,7 +15,7 @@ export class ChemicalEquationsFormComponent implements OnInit {
   equationsForm: FormGroup;
   equationCtrl: FormControl;
 
-  constructor(private router: Router, private fb: FormBuilder) { }
+  constructor(private router: Router, private fb: FormBuilder, private httpCLient: HttpClientService,private data: DataService) { }
 
   ngOnInit() {
     //TODO make full reaction validation
@@ -36,8 +39,13 @@ export class ChemicalEquationsFormComponent implements OnInit {
   }
 
   getDifferentialEquations() {
-    //do some logic
-    this.router.navigateByUrl('/configConstants');
+    let equations = this.equationsForm.value.equations.map(el => {return el.equation})
+    this.httpCLient.parseEquations(equations).subscribe(differentialEquations => {
+      //TODO fix
+      this.data.changeMessage(differentialEquations.error.text)
+      this.router.navigateByUrl('/configConstants');
+    }
+    );
   }
 
 }

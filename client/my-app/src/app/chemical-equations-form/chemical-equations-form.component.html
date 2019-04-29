@@ -6,13 +6,14 @@
     <div formArrayName="equations">
       <div *ngFor="let item of equationsGetter.controls; let pointIndex=index" [formGroupName]="pointIndex">
         <label> Equation: <input formControlName="equation" type="text" required /> </label>
-
-        <div *ngIf="equationCtrl.invalid && (equationCtrl.dirty || equationCtrl.touched)  "  class="alert alert-danger">
-          Enter equation following pattern
-        </div>
         <button type="button" (click)="deleteEquation(pointIndex)">Delete Equation</button>
       </div>
+
       <button type="button" (click)="addEquation()">Add Equation</button>
+      
+      <div *ngIf="equationCtrl.invalid && (equationCtrl.dirty || equationCtrl.touched)">
+          Enter equation following pattern
+        </div>
     </div>
 
     <button type="submit" id="getDifEq" value="getDifEq" class="btn btn-success"

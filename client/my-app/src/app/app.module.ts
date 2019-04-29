@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HttpInterceptor,HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -11,6 +12,7 @@ import { ConfigConstantsFormComponent } from './config-constants-form/config-con
 import { ExperimentalDataFormComponent } from './experimental-data-form/experimental-data-form.component';
 import { SummaryComponent } from './summary/summary.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { DifferentialEquationsComponent } from './differential-equations/differential-equations.component';
 
 @NgModule({
   declarations: [
@@ -20,13 +22,15 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     ConfigConstantsFormComponent,
     ExperimentalDataFormComponent,
     SummaryComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    DifferentialEquationsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

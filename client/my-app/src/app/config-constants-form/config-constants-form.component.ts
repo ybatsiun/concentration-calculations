@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
+import { DifferentialEquationsComponent } from '../differential-equations/differential-equations.component';
+
+
 
 @Component({
   selector: 'app-config-constants-form',
