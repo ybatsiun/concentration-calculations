@@ -17,7 +17,7 @@
             "program": "${workspaceFolder}/server/machineLearningModule/parseEquations.py",
             "console": "integratedTerminal",
             "args":[
-                //'{"test":"123"}'
+                "A+B=C", "C->F+T"
             ]
         },
         {

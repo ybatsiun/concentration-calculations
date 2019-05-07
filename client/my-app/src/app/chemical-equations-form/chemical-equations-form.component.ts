@@ -41,8 +41,8 @@ export class ChemicalEquationsFormComponent implements OnInit {
   getDifferentialEquations() {
     let equations = this.equationsForm.value.equations.map(el => {return el.equation})
     this.httpCLient.parseEquations(equations).subscribe(differentialEquations => {
-      //TODO fix
-      this.data.changeMessage(differentialEquations.error.text)
+      //TODO handle error
+      this.data.changeMessage(differentialEquations)
       this.router.navigateByUrl('/configConstants');
     }
     );

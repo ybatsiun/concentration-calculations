@@ -29,7 +29,7 @@ app.post('/parseEquations', (req, res) => {
             return;
         };
 
-        res.send(stdout);
+        res.send(JSON.parse(stdout.replace(/'/g,'"')));
     });
 
 });

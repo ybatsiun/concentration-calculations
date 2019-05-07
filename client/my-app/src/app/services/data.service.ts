@@ -6,12 +6,12 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class DataService {
 
-  private differentialEquationsSystem = new BehaviorSubject('default message');
+  private differentialEquationsSystem = new BehaviorSubject([]);
   currentDifferentialEquationsSystem = this.differentialEquationsSystem.asObservable();
 
   constructor() { }
 
-  changeMessage(system: string) {
+  changeMessage(system: Array <String>) {
     this.differentialEquationsSystem.next(system)
   }
 

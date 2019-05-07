@@ -12,7 +12,10 @@ export class DifferentialEquationsComponent implements OnInit {
 
   constructor(private data: DataService) { }
   ngOnInit() {
-    this.data.currentDifferentialEquationsSystem.subscribe(message => this.message = message)
+    this.data.currentDifferentialEquationsSystem.subscribe(message => { 
+      this.message = message.map(e=>e.html) })
   }
+
+
 
 }
