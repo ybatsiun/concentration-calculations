@@ -55,8 +55,9 @@ def getEquations(rea):
 
                 else:
                     d = d.end(0)
-                    agg.add(rea2[i][j][k][d - 1 :])
-                    rea2[i][j][k] = [rea2[i][j][k][: d - 1], rea2[i][j][k][d - 1 :]]
+                    agg.add(rea2[i][j][k][d - 1:])
+                    rea2[i][j][k] = [rea2[i][j][k]
+                                     [: d - 1], rea2[i][j][k][d - 1:]]
                 k += 1
             j += 1
         i += 1
@@ -72,15 +73,23 @@ def getEquations(rea):
 
             else:
                 k = k + "C_{}**{}".format(t[1], t[0])
-        equa.append(k)
+
+        # remove the last '*' if it exists
+        kf = k.rfind("*")
+        if(kf != -1):
+            new_string = k[:kf] + k[kf+1:]
+            equa.append(new_string)
+        else:
+            equa.append(k)
+
         i += 1
     equations = []
-    reagentsList= []
+    reagentsList = []
     equationDataArray = []
     for s in agg:  # собираем конечные уравнения
         equationData = {}
         k = "dC({})/dt = ".format(s)
-        equationData['reagent']= s
+        equationData['reagent'] = s
         i = -1
         flag = True
         for t in rea2:
@@ -117,17 +126,18 @@ def getEquations(rea):
     return equationDataArray
 
 
-def _convertEquationToExpression(equation,concentrationsSigns):
+def _convertEquationToExpression(equation, concentrationsSigns):
     functions = []
 
     functionName = f"equationFunc_{random.randint(1,101)}"
-    functionString = _getFunctionString(equation, functionName,concentrationsSigns)
+    functionString = _getFunctionString(
+        equation, functionName, concentrationsSigns)
     exec(functionString)
 
     return locals()[functionName]
 
 
-def _getFunctionString(equationString, functionName,concentrationsSigns):
+def _getFunctionString(equationString, functionName, concentrationsSigns):
     nstring = equationString.replace("**", "^")
     splitted = re.split("(\-|\+|\*|\^|\n)", nstring)
     newSplitted = []
@@ -136,7 +146,7 @@ def _getFunctionString(equationString, functionName,concentrationsSigns):
 
     # generate an array of variables  to replace
     varKeys = []
-    for i in range(0,len(SPEED_CONSTANTS)):
+    for i in range(0, len(SPEED_CONSTANTS)):
         varKeys.append("k"+str(i + 1))
     varKeys = varKeys + concentrationsSigns
     finalSplitted = []
@@ -155,6 +165,7 @@ def _getFunctionString(equationString, functionName,concentrationsSigns):
 
     return template
 
+
 def convertEquations(equationDataArray):
     """
     Parameters:
@@ -166,10 +177,10 @@ def convertEquations(equationDataArray):
     concentrationsSigns = []
     for equationData in equationDataArray:
         concentrationsSigns.append("C_{}".format(equationData['reagent']))
-    
+
     for equationData in equationDataArray:
         secondEquationPart = equationData['equation'].split(" = ")[1]
-        equationData['function'] = _convertEquationToExpression(secondEquationPart,concentrationsSigns)
-    
+        equationData['function'] = _convertEquationToExpression(
+            secondEquationPart, concentrationsSigns)
 
-    return sorted(equationDataArray, key=lambda k: k['reagent']) 
+    return sorted(equationDataArray, key=lambda k: k['reagent'])
