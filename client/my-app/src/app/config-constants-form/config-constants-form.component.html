@@ -1,6 +1,25 @@
 <app-differential-equations></app-differential-equations>
+<h2> Config </h2>
 
-<p>
-  config-constants-form works!
-</p>
-<button type="button" routerLink="/experimentalData">To experimentalData</button>
+<form [formGroup]="configForm" name="form" #f="ngForm">
+  <label> Fill in chemical speed constants </label>
+
+  <div formArrayName="speedConstants">
+    <div *ngFor="let item of speedConstants.controls; let i=index">
+      <h4 [innerHTML]="this.htmlConstants[i]"> </h4>
+
+      <div [formGroupName]="i">
+        <label>min</label> <input size="4" formControlName="min">
+        <label> max</label> <input size="4" formControlName="max">
+        <label> step</label> <input size="4" formControlName="step">
+      </div>
+
+    </div>
+
+  </div>
+
+  <button type="submit" id="getDifEq" value="getDifEq" class="btn btn-success" routerLink="/experimentalData">
+    To experimentalData</button>
+
+  {{ this.configForm.value | json }}
+</form>

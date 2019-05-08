@@ -15,12 +15,11 @@ export class ChemicalEquationsFormComponent implements OnInit {
   equationsForm: FormGroup;
   equationCtrl: FormControl;
 
-  constructor(private router: Router, private fb: FormBuilder, private httpCLient: HttpClientService,private data: DataService) { }
+  constructor(private router: Router, private fb: FormBuilder, private httpCLient: HttpClientService, private data: DataService) { }
 
   ngOnInit() {
     //TODO make full reaction validation
-    this.equationCtrl = this.fb.control('', Validators.compose([Validators.required, Validators.pattern(/(\+|->|=)/)]));
-
+    this.equationCtrl = this.fb.control('a+b=c', Validators.compose([Validators.required, Validators.pattern(/(\+|->|=)/)]));
     this.equationsForm = this.fb.group({
       equations: this.fb.array([this.fb.group({ equation: this.equationCtrl })])
     })
@@ -39,7 +38,7 @@ export class ChemicalEquationsFormComponent implements OnInit {
   }
 
   getDifferentialEquations() {
-    let equations = this.equationsForm.value.equations.map(el => {return el.equation})
+    let equations = this.equationsForm.value.equations.map(el => { return el.equation })
     this.httpCLient.parseEquations(equations).subscribe(differentialEquations => {
       //TODO handle error
       this.data.changeMessage(differentialEquations)
