@@ -12,9 +12,9 @@ import { FormBuilder, FormGroup, FormArray, FormControl, Validators } from '@ang
   styleUrls: ['./config-constants-form.component.css']
 })
 export class ConfigConstantsFormComponent implements OnInit {
-  htmlConstants; initialConcentrations; constantControl: FormControl;
+  htmlConstants; constantControl: FormControl;
 
-  configForm;
+  configForm; reagents
 
   constructor(private router: Router, private data: DataService, private fb: FormBuilder) { }
 
@@ -25,19 +25,41 @@ export class ConfigConstantsFormComponent implements OnInit {
   getConstants() {
     this.data.currentDifferentialEquationsSystem.subscribe(message => {
       let rawHtml = message.map(e => e.html).toString();
+      this.reagents = message.map(e => e.reagent);
       this.htmlConstants = rawHtml.match(/k<sub>\d<\/sub>/g).filter((value, index, self) => {
         return self.indexOf(value) === index;
       });
 
       this.configForm = this.fb.group({
-        speedConstants: this.fb.array([])
+        speedConstants: this.fb.array([]),
+        calculationConfig:this.fb.group({
+          initialConcentrations: this.fb.array([])
+        }),
+        timeInterval:this.fb.group({
+          start:this.fb.control(''),
+          finish:this.fb.control(''),
+          partsToDivide: this.fb.control('')
+        })
       });
 
-      for (let i = 0; i < this.htmlConstants.length; ++i) {
+      for (let i = 0; i < this.htmlConstants.length; i++) {
         this.addConstant();
       };
+      
+      this.reagents.forEach(element => {
+        this.addInitialConcentration(element);
+      });
 
     });
+  };
+  get initialConcentrations() {
+    return this.configForm.get('calculationConfig').get('initialConcentrations') as FormArray;
+  };
+
+  addInitialConcentration(reagentName) {
+    this.initialConcentrations.push(this.fb.group({
+      [reagentName]: this.fb.control('')
+    }));
   };
 
   get speedConstants() {

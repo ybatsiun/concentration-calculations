@@ -2,7 +2,7 @@
 <h2> Config </h2>
 
 <form [formGroup]="configForm" name="form" #f="ngForm">
-  <label> Fill in chemical speed constants </label>
+  <h3> Fill in chemical speed constants </h3>
 
   <div formArrayName="speedConstants">
     <div *ngFor="let item of speedConstants.controls; let i=index">
@@ -13,13 +13,30 @@
         <label> max</label> <input size="4" formControlName="max">
         <label> step</label> <input size="4" formControlName="step">
       </div>
-
     </div>
-
+  </div>
+<br>
+  <h3> Fill in initial concentrations for each reagent </h3>
+  <div formGroupName="calculationConfig">
+    <div formArrayName="initialConcentrations">
+      <div *ngFor="let item of initialConcentrations.controls; let i=index">
+        <div [formGroupName]="i">
+          <label>{{this.reagents[i]}}</label> <input size="4" formControlName="{{this.reagents[i]}}">
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <h3> Fill in time interval data </h3>
+    <div formGroupName="timeInterval">
+      <label>start </label> <input size="4" formControlName="start"> 
+      <label> finish </label> <input size="4" formControlName="finish"> 
+      <label> parts to divide </label> <input size="4" formControlName="partsToDivide"> 
   </div>
 
   <button type="submit" id="getDifEq" value="getDifEq" class="btn btn-success" routerLink="/experimentalData">
     To experimentalData</button>
 
   {{ this.configForm.value | json }}
+
 </form>
