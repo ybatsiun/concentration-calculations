@@ -50,7 +50,7 @@ app.post('/calculateConstants', (req, res) => {
     equationData_s = '[' + equationData_s + ']';
     equationData_s = equationData_s.replace(/\"/g, "'");
     config = JSON.stringify(config).replace(/\"/g, "'");
-
+    experimentalData = experimentalData.replace(/(\r\n|\n|\r)/gm,"");
 
     exec(`python "${process.cwd()}/server/machineLearningModule/main.py" "${experimentalData}" "${config}" "${equationData_s}"`,
         (err, stdout, stderr) => {
