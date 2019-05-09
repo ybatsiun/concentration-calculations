@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { DataService } from '../services/data.service';
 import { FormBuilder, FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
-
-
-
+import { HttpClientService } from '../services/http-client.service';
 
 @Component({
   selector: 'app-config-constants-form',
@@ -12,15 +10,13 @@ import { FormBuilder, FormGroup, FormArray, FormControl, Validators } from '@ang
   styleUrls: ['./config-constants-form.component.css']
 })
 export class ConfigConstantsFormComponent implements OnInit {
-  htmlConstants; constantControl: FormControl;
+  htmlConstants; constantControl: FormControl; configForm; reagents;
 
-  configForm; reagents
-
-  constructor(private router: Router, private data: DataService, private fb: FormBuilder) { }
+  constructor(private router: Router, private data: DataService, private fb: FormBuilder, private httpCLient: HttpClientService) { }
 
   ngOnInit() {
     this.getConstants();
-  }
+  };
 
   getConstants() {
     this.data.currentDifferentialEquationsSystem.subscribe(message => {
@@ -32,20 +28,21 @@ export class ConfigConstantsFormComponent implements OnInit {
 
       this.configForm = this.fb.group({
         speedConstants: this.fb.array([]),
-        calculationConfig:this.fb.group({
-          initialConcentrations: this.fb.array([])
-        }),
-        timeInterval:this.fb.group({
-          start:this.fb.control(''),
-          finish:this.fb.control(''),
+        calculationConfig: this.fb.group({
+          initialConcentrations: this.fb.array([]),
+          timeInterval: this.fb.group({
+            start: this.fb.control(''),
+            finish: this.fb.control('')
+          }),
           partsToDivide: this.fb.control('')
-        })
+        }),
+        experimantalData: this.fb.control('')
       });
 
       for (let i = 0; i < this.htmlConstants.length; i++) {
         this.addConstant();
       };
-      
+
       this.reagents.forEach(element => {
         this.addInitialConcentration(element);
       });
@@ -74,6 +71,15 @@ export class ConfigConstantsFormComponent implements OnInit {
     }));
   };
 
-
-
+  onSubmit() {
+    this.configForm.value.calculationConfig.timeInterval =
+      [this.configForm.value.calculationConfig.timeInterval.start,
+      this.configForm.value.calculationConfig.timeInterval.finish];
+    this.httpCLient.calculateConstants(this.configForm.value).subscribe(summary => {
+      //TODO handle error
+      this.data.changeMessage(summary)
+      this.router.navigateByUrl('/summary');
+    }
+    );
+  };
 }

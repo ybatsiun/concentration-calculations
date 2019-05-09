@@ -9,32 +9,39 @@
       <h4 [innerHTML]="this.htmlConstants[i]"> </h4>
 
       <div [formGroupName]="i">
-        <label>min</label> <input size="4" formControlName="min">
-        <label> max</label> <input size="4" formControlName="max">
-        <label> step</label> <input size="4" formControlName="step">
+        <label>min</label> <input type="number" style="width: 5em" formControlName="min">
+        <label> max</label> <input type="number" style="width: 5em" formControlName="max">
+        <label> step</label> <input type="number" style="width: 5em" formControlName="step">
       </div>
     </div>
   </div>
-<br>
+  <br>
   <h3> Fill in initial concentrations for each reagent </h3>
   <div formGroupName="calculationConfig">
     <div formArrayName="initialConcentrations">
       <div *ngFor="let item of initialConcentrations.controls; let i=index">
         <div [formGroupName]="i">
-          <label>{{this.reagents[i]}}</label> <input size="4" formControlName="{{this.reagents[i]}}">
+          <label>{{this.reagents[i]}}</label> <input style="width: 5em" type="number" formControlName="{{this.reagents[i]}}">
         </div>
       </div>
     </div>
-  </div>
-  <br>
-  <h3> Fill in time interval data </h3>
+    <br>
+    <h3> Fill in time interval data </h3>
     <div formGroupName="timeInterval">
-      <label>start </label> <input size="4" formControlName="start"> 
-      <label> finish </label> <input size="4" formControlName="finish"> 
-      <label> parts to divide </label> <input size="4" formControlName="partsToDivide"> 
+        <label>start </label> <input style="width: 5em" type="number" formControlName="start">
+        <label> finish </label> <input style="width: 5em" type="number" formControlName="finish">
+      </div>
+    <label> parts to divide </label> <input style="width: 5em" type="number" formControlName="partsToDivide">
+  </div>
+  
+  <div>
+    <h3> Fill in experimanal data </h3>
+    <label>experimental data: </label>
+    <textarea type="text" style="height:200px; width:800px" formControlName="experimantalData">
+      </textarea>
   </div>
 
-  <button type="submit" id="getDifEq" value="getDifEq" class="btn btn-success" routerLink="/experimentalData">
+  <button type="submit" class="btn btn-success" (click)="f.form.valid && onSubmit()">
     To experimentalData</button>
 
   {{ this.configForm.value | json }}

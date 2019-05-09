@@ -46,13 +46,4 @@ export class ChemicalEquationsFormComponent implements OnInit {
     }
     );
   }
-
-}
-
-
-class Equations {
-
-  constructor(
-    public equation: string,
-  ) { }
 }
