@@ -77,12 +77,18 @@ def getEquations(rea):
                 k_html = k_html + 'C<sub>{}</sub>'.format(t[1])
             else:
                 # the one for python operations
-                k = k + "C_{}^{}".format(t[1], t[0])
+                k = k + "C_{}**{}".format(t[1], t[0])
                 # the one for html represantation
                 k_html = k_html + 'C<sub>{}</sub><sup>{}</sup>'.format(t[1], t[0])
 
 
-        equa.append(k)
+        # remove the last '*' if it exists
+        kf = k.rfind("*")
+        if(kf != -1 and (len(k)-1)==kf):
+            new_string = k[:kf] + k[kf+1:]
+            equa.append(new_string)
+        else:
+            equa.append(k)
         equa_html.append(k_html)
         i += 1
 
@@ -146,8 +152,8 @@ def _convertEquationToExpression(equation, concentrationsSigns):
 
 def _getFunctionString(equationString, functionName, concentrationsSigns):
     
-    #nstring = equationString.replace("**", "^")
-    splitted = re.split("(\-|\+|\*|\^|\n)", equationString)
+    nstring = equationString.replace("**", "^")
+    splitted = re.split("(\-|\+|\*|\^|\n)", nstring)
     newSplitted = []
     for val in splitted:
         newSplitted.append(val.strip().replace("^", "**"))

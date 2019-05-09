@@ -52,7 +52,7 @@ app.post('/calculateConstants', (req, res) => {
     config = JSON.stringify(config).replace(/\"/g, "'");
     experimentalData = experimentalData.replace(/(\r\n|\n|\r)/gm,"");
 
-    exec(`python "${process.cwd()}/machineLearningModule/main.py" "${experimentalData}" "${config}" "${equationData}"`,
+    exec(`python "${process.cwd()}/machineLearningModule/main.py" "${experimentalData}" "${config}" "${equationData_s}"`,
         (err, stdout, stderr) => {
             if (err) {
                 console.error(`exec error: ${stderr}`);

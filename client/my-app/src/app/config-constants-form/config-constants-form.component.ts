@@ -23,9 +23,11 @@ export class ConfigConstantsFormComponent implements OnInit {
       this.equationData = message;
       let rawHtml = message.map(e => e.html).toString();
       this.reagents = message.map(e => e.reagent);
+      //get html representration of constants and sort unique values
       this.htmlConstants = rawHtml.match(/k<sub>\d<\/sub>/g).filter((value, index, self) => {
         return self.indexOf(value) === index;
-      });
+      }).sort((a, b) => Number.parseInt(a.match(/\d/)[0]) - Number.parseInt(b.match(/\d/)[0]));
+      
       this.form = this.fb.group({
         config: this.fb.group({
           speedConstants: this.fb.array([]),
