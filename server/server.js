@@ -43,14 +43,14 @@ function setAccessHeaders(res) {
 app.post('/calculateConstants', (req, res) => {
     let { equationData, config,experimentalData } = req.body;
 
-    // let equationData_s = '';
-    // equationData.forEach(element => {
-    //     equationData_s = equationData_s + JSON.stringify(element) + ',';
-    // });
-    // equationData_s = '[' + equationData_s + ']';
-    // equationData_s = equationData_s.replace(/\"/g, "'");
-    // config = JSON.stringify(config).replace(/\"/g, "'");
-    // experimentalData = experimentalData.replace(/(\r\n|\n|\r)/gm,"");
+    let equationData_s = '';
+    equationData.forEach(element => {
+        equationData_s = equationData_s + JSON.stringify(element) + ',';
+    });
+    equationData_s = '[' + equationData_s + ']';
+    equationData_s = equationData_s.replace(/\"/g, "'");
+    config = JSON.stringify(config).replace(/\"/g, "'");
+    experimentalData = experimentalData.replace(/(\r\n|\n|\r)/gm,"");
 
     exec(`python "${process.cwd()}/machineLearningModule/main.py" "${experimentalData}" "${config}" "${equationData}"`,
         (err, stdout, stderr) => {
