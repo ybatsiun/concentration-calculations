@@ -94,7 +94,7 @@ export class ConfigConstantsFormComponent implements OnInit {
 
     this.httpCLient.calculateConstants(this.form.value).subscribe(summary => {
       //TODO handle error
-      this.data.changeMessage(summary)
+      this.data.setSummary(summary);
       this.router.navigateByUrl('/summary');
     }
     );

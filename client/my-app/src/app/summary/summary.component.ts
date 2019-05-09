@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from "@angular/router";
+import { DataService } from '../services/data.service';
+
+
 
 
 @Component({
@@ -8,10 +10,12 @@ import { Router } from "@angular/router";
   styleUrls: ['./summary.component.css']
 })
 export class SummaryComponent implements OnInit {
-
-  constructor(private router: Router) { }
+  summary;
+  constructor(private data: DataService) { }
 
   ngOnInit() {
-  }
-
-}
+    this.data.currentSummary.subscribe(summary => {
+      this.summary = summary['text'];
+    })
+  };
+};
