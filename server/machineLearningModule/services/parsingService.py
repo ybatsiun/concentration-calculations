@@ -82,13 +82,7 @@ def getEquations(rea):
                 k_html = k_html + 'C<sub>{}</sub><sup>{}</sup>'.format(t[1], t[0])
 
 
-        # remove the last '*' if it exists
-        kf = k.rfind("*")
-        if(kf != -1):
-            new_string = k[:kf] + k[kf+1:]
-            equa.append(new_string)
-        else:
-            equa.append(k)
+        equa.append(k)
         equa_html.append(k_html)
         i += 1
 
