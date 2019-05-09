@@ -1,4 +1,6 @@
 from services.loggerService import log
+import numpy as np
+
 
 def getRelativeError(answersArray):
     avarageValues = []
@@ -19,4 +21,4 @@ def getRelativeError(answersArray):
 
 
     log('relative error per answer in percent',True)
-    log(answersArray,True)
+    log(np.array(answersArray).tolist(),True)

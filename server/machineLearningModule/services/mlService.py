@@ -34,6 +34,7 @@ def getTrainNetworks(data):
         Returns an array of neural networks, where each is trained for certain time interval 
     """
     networks = []
+    log('see machine learning insights',True)
     # generate network for each time interval
     for timeIntervalData in data:
         
@@ -66,9 +67,10 @@ def getTrainNetworks(data):
         accuracyBreakBy = explained_variance_score(constantsSetArray_validation, predictedForValidation,  multioutput='raw_values')
         avarage = explained_variance_score(constantsSetArray_validation, predictedForValidation,  multioutput='uniform_average')
         
-        log('random forest accuracy breakby:',True)
+        log('neural network for ' + " ".join(map(str, timeIntervalData['timeInterval'])) + ' time interval:',True)
+        log('accuracy per value:',True)
         log(accuracyBreakBy,True)
-        log('random forest accuracy avarage:',True)
+        log('accuracy avarage:',True)
         log(avarage,True)
         networks.append(regr_multirf)
 
@@ -84,6 +86,6 @@ def getPredictionsArray(networks,inputs):
         input_2d = [np.asarray(inputs[i]).ravel()]
         predictions.append(networks[i].predict(input_2d))
 
-    log("predictions:",True )
-    log(predictions,True)
+    log("neutral network predictions:",True )
+    log(np.array(predictions).tolist(),True)
     return predictions

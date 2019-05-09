@@ -5,7 +5,6 @@ import re
 import random
 from config import *
 
-
 def getEquations(rea):
     n = len(rea)
 
