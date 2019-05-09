@@ -19,7 +19,7 @@ export class ChemicalEquationsFormComponent implements OnInit {
 
   ngOnInit() {
     //TODO make full reaction validation
-    this.equationCtrl = this.fb.control('a+b=c', Validators.compose([Validators.required, Validators.pattern(/(\+|->|=)/)]));
+    this.equationCtrl = this.fb.control('A+B=C+D', Validators.compose([Validators.required, Validators.pattern(/(\+|->|=)/)]));
     this.equationsForm = this.fb.group({
       equations: this.fb.array([this.fb.group({ equation: this.equationCtrl })])
     })
