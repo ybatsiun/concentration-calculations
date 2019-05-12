@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" style="position:relative; left:80px; top:2px;">
   <h1>Equations Form</h1>
   <form [formGroup]="equationsForm" name="form" #f="ngForm">
     <label> type equations here: </label>
@@ -20,6 +20,4 @@
       (click)="f.form.valid && getDifferentialEquations()">Go to config & constants</button>
 
   </form>
-  {{ this.equationsForm.value | json }}
-  a+b=c
 </div>

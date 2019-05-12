@@ -22,7 +22,7 @@ app.use(bodyParser.json());
 app.post('/parseEquations', (req, res) => {
     const { equations } = req.body;
 
-    exec(`python "${process.cwd()}/server/machineLearningModule/parseEquations.py" "${equations}"`, (err, stdout, stderr) => {
+    exec(`python "${process.cwd()}/machineLearningModule/parseEquations.py" "${equations}"`, (err, stdout, stderr) => {
         if (err) {
             console.error(`exec error: ${err}`);
             res.status(500).send(err)
@@ -50,9 +50,9 @@ app.post('/calculateConstants', (req, res) => {
     equationData_s = '[' + equationData_s + ']';
     equationData_s = equationData_s.replace(/\"/g, "'");
     config = JSON.stringify(config).replace(/\"/g, "'");
-    experimentalData = experimentalData.replace(/(\r\n|\n|\r)/gm, "");
+    experimentalData = experimentalData.replace(/(\r\n|\n|\r|\s)/gm, "").replace(" ", "");
 
-    exec(`python "${process.cwd()}/server/machineLearningModule/main.py" "${experimentalData}" "${config}" "${equationData_s}"`,
+    exec(`python "${process.cwd()}/machineLearningModule/main.py" "${experimentalData}" "${config}" "${equationData_s}"`,
         (err, stdout, stderr) => {
             if (err) {
                 console.error(`exec error: ${stderr}`);

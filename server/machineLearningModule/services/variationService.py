@@ -1,4 +1,5 @@
-import numpy 
+import numpy
+from services.loggerService import log
 
 def getVariants(constants):
     def recursiveFunc(index, arr):
@@ -19,5 +20,5 @@ def getVariants(constants):
     constantsLength = len(constants)
     # 0 - start from first constant object
     recursiveFunc(0, [])
-
+    log('constants variations length: ' + str(len(result)))
     return result

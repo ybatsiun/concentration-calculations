@@ -10,11 +10,10 @@ import services.metricsService as metricsService
 import services.utilsService as utils
 import numpy as np
 import sys
+import time
 
 log('started the process')
-log(sys.argv[1])
-log(sys.argv[2])
-log(sys.argv[3])
+start = time.time()
 
 experimentalData = eval(sys.argv[1])
 config = eval(sys.argv[2])
@@ -23,17 +22,20 @@ equationDataArray = eval(sys.argv[3])
 log('parsed')
 
 intregrationInterval = len(experimentalData)
+log('intergration interval' + str(intregrationInterval))
 experimentalDataByTimeInterval = utils.splitConcentrationsByTimeInterval(
     experimentalData, partsToDivide)
 
 
-equationData = parsingService.convertEquations(equationDataArray)
+equationData = parsingService.convertEquations(equationDataArray, len(config['speedConstants']) )
 constantsVariations = services.variationService.getVariants(
     config['speedConstants'])
+
 
 timeInterval = config['calculationConfig']['timeInterval']
 results = services.calculateService.getCalculationsSetByVariants(
     equationData, constantsVariations, intregrationInterval, timeInterval, partsToDivide, config['calculationConfig']['initialConcentrations'])
+fsService.writeJsonToFile(results, 'results.json')
 networks = mlService.getTrainNetworks(results)
 
 predictions = mlService.getPredictionsArray(
@@ -41,5 +43,6 @@ predictions = mlService.getPredictionsArray(
 
 metricsService.getRelativeError(predictions)
 
-#fsService.writeJsonToFile(results, 'server/machineLearningModule/results.json')
+end = time.time()
 log('process was ended successfully')
+log('Time of execution: ' + str(round(end - start,1)) + ' seconds',True)

@@ -16,8 +16,8 @@ def getRelativeError(answersArray):
 
     for a in range(0, len(answersArray)):
         for i in range(0, len(answersArray[a])):
-            answersArray[a][i] = (
-                abs(answersArray[a][i]-avarageValues[i])/avarageValues[i])*100
+            value = (abs(answersArray[a][i]-avarageValues[i])/avarageValues[i])*100
+            answersArray[a][i] = round(value,3)
 
 
     log('relative error per answer in percent',True)

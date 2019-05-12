@@ -138,18 +138,18 @@ def getEquations(rea):
     return equationDataArray
 
 
-def _convertEquationToExpression(equation, concentrationsSigns):
+def _convertEquationToExpression(equation, concentrationsSigns,constantsAmount):
     functions = []
 
     functionName = f"equationFunc_{random.randint(1,101)}"
     functionString = _getFunctionString(
-        equation, functionName, concentrationsSigns)
+        equation, functionName, concentrationsSigns,constantsAmount)
     exec(functionString)
 
     return locals()[functionName]
 
 
-def _getFunctionString(equationString, functionName, concentrationsSigns):
+def _getFunctionString(equationString, functionName, concentrationsSigns,constantsAmount):
     
     nstring = equationString.replace("**", "^")
     splitted = re.split("(\-|\+|\*|\^|\n)", nstring)
@@ -159,7 +159,7 @@ def _getFunctionString(equationString, functionName, concentrationsSigns):
 
     # generate an array of variables  to replace
     varKeys = []
-    for i in range(0, len(SPEED_CONSTANTS)):
+    for i in range(0, constantsAmount):
         varKeys.append("k"+str(i + 1))
     varKeys = varKeys + concentrationsSigns
     finalSplitted = []
@@ -179,7 +179,7 @@ def _getFunctionString(equationString, functionName, concentrationsSigns):
     return template
 
 
-def convertEquations(equationDataArray):
+def convertEquations(equationDataArray, constantsAmount):
     """
     Parameters:
     equationDataArray (Array): objects each containig 'equation' - string for differential equation and 'reagentName'
@@ -194,6 +194,6 @@ def convertEquations(equationDataArray):
     for equationData in equationDataArray:
         secondEquationPart = equationData['equation'].split(" = ")[1]
         equationData['function'] = _convertEquationToExpression(
-            secondEquationPart, concentrationsSigns)
+            secondEquationPart, concentrationsSigns,constantsAmount)
 
     return sorted(equationDataArray, key=lambda k: k['reagent'])

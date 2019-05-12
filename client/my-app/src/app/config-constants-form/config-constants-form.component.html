@@ -1,7 +1,7 @@
-<app-differential-equations></app-differential-equations>
-<h2> Config </h2>
+<app-differential-equations style="position:relative; left:80px; top:2px;"></app-differential-equations>
 
-<form [formGroup]="form" name="form" #f="ngForm">
+<form [formGroup]="form" name="form" #f="ngForm" style="position:relative; left:80px; top:2px;">
+  <h2> Config </h2>
   <div formGroupName="config">
     <h3> Fill in chemical speed constants </h3>
     <div formArrayName="speedConstants">
@@ -35,16 +35,13 @@
     </div>
   </div>
 
-   <div>
+  <div>
     <h3> Fill in experimanal data </h3>
     <label>experimental data: </label>
     <textarea type="text" style="height:200px; width:800px" formControlName="experimentalData">
       </textarea>
-  </div> 
+  </div>
 
   <button type="submit" class="btn btn-success" (click)="f.form.valid && onSubmit()">
-    To experimentalData</button>
-
-  {{ this.form.value | json }}
-
+    Сalculate constants</button>
 </form>
