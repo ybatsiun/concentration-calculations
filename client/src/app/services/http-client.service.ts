@@ -7,7 +7,7 @@ import { catchError, map, tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class HttpClientService {
-  private beHost = 'http://localhost:3000';
+  private beHost = '/api';
   private routes = {
     parseEquations: '/parseEquations',
     calculateConstants: '/calculateConstants',
