@@ -34,6 +34,11 @@ app.post('/parseEquations', (req, res) => {
 
 });
 
+app.get('/healthcheck', (req, res) => {
+    console.log('I am up and running!');
+    res.send('I am up and running!');
+});
+
 function setAccessHeaders(res) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', '*');
