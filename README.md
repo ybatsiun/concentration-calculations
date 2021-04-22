@@ -8,7 +8,7 @@ experimental data (concentration vs time for each component), time period.
 1. Download docker from [official resource](https://docs.docker.com/get-docker/)
 2. Open command line in the root of the project and run `docker compose build`. This will build the images for a software components. Do it this action only once.
 3. Run `docker compose up` from command line from the root folder.
-4. Go to localhost:3050 and app should work now.
+4. Go to http://localhost:3050 and app should work now.
 
 ## run samples
 
