@@ -1,7 +1,8 @@
 # concentration-calculations
 
-This is a project was done as a part of Master thesis. This soft calculates chemical reaction constants for a given chemical reactions, initial components concentrations,
-experimental data (concentration vs time for each component), time period.
+This project was done as a part of Master thesis. This soft calculates chemical reaction constants for a given chemical reactions, initial components concentrations,
+experimental data (concentration vs time for each component), time period. Under the hood a machine learning concept is used. NodeJS is used as a "api-gateway" and UI is 
+implemented using Angular 8.
 
 ## installation
 
